@@ -66,4 +66,5 @@ dependencies {
     // Android Support
     implementation "com.android.support:design:$versions.androidSupport"
     implementation "com.android.support.constraint:constraint-layout:$versions.constraintLayout"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }

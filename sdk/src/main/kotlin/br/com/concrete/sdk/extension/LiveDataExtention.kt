@@ -9,6 +9,11 @@ import android.arch.lifecycle.Observer
 
 fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: ((T) -> Unit)) = observe(owner, Observer { it?.let(observer) })
 
+fun <T> LiveData<T>.observeSingle(owner: LifecycleOwner, observer: ((T) -> Unit)) = observeUntil(owner) {
+    it.let(observer)
+    true
+}
+
 fun <T> LiveData<T>.observeUntil(owner: LifecycleOwner, observer: ((T) -> Boolean)) {
     observe(owner, object : Observer<T> {
         override fun onChanged(data: T?) {

@@ -8,24 +8,31 @@ android {
     }
 
     def baseUrl = [
-            debug  : '"https://api.themoviedb.org/"',
-            release: '"https://api.themoviedb.org/"'
+            debug  : '"https://api.themoviedb.org/3/"',
+            release: '"https://api.themoviedb.org/3/"'
     ]
 
-    def apiKey = [
-            debug  : '"api_key"',
-            release: '"api_key"'
+    def apiV3Key = [
+            debug  : '"805556f170ab662c04157dd9f5b03b58"',
+            release: '"805556f170ab662c04157dd9f5b03b58"'
+    ]
+
+    def apiV4Key = [
+            debug  : '"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MDU1NTZmMTcwYWI2NjJjMDQxNTdkZDlmNWIwM2I1OCIsInN1YiI6IjU5ZjM4NDdkOTI1MTQxNmFhZjA1NTk0MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kUznEfN92oLTlaRTFbYtr8lRnT-IO-H3mX4HYefnOtQ"',
+            release: '"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MDU1NTZmMTcwYWI2NjJjMDQxNTdkZDlmNWIwM2I1OCIsInN1YiI6IjU5ZjM4NDdkOTI1MTQxNmFhZjA1NTk0MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kUznEfN92oLTlaRTFbYtr8lRnT-IO-H3mX4HYefnOtQ"'
     ]
 
     buildTypes {
         debug {
             buildConfigField 'String', 'BASE_URL', baseUrl.debug
-            buildConfigField 'String', 'API_KEY', apiKey.debug
+            buildConfigField 'String', 'API_KEY', apiV3Key.debug
+            buildConfigField 'String', 'API_V4_KEY', apiV4Key.debug
         }
 
         release {
             buildConfigField 'String', 'BASE_URL', baseUrl.release
-            buildConfigField 'String', 'API_KEY', apiKey.release
+            buildConfigField 'String', 'API_KEY', apiV3Key.release
+            buildConfigField 'String', 'API_V4_KEY', apiV4Key.release
         }
     }
 }

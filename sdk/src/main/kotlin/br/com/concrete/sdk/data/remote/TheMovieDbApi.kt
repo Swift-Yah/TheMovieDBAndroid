@@ -16,6 +16,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import timber.log.Timber
 
@@ -24,8 +25,11 @@ internal interface TheMovieDbApi {
     @GET("configuration")
     fun getConfiguration(): ResponseLiveData<SdkConfig>
 
+    @GET("movie/{movie_id}")
+    fun getMovieDetail(@Path("movie_id") id: Int): ResponseLiveData<Movie>
+
     @GET("movie/latest")
-    fun getLatest(@Query("page") page: Int): ResponseLiveData<Page<Movie>>
+    fun getLatestMovie(): ResponseLiveData<Movie>
 
     @GET("movie/now_playing")
     fun getNowPlaying(@Query("page") page: Int): ResponseLiveData<Page<Movie>>
@@ -57,8 +61,8 @@ private fun buildClient(): OkHttpClient {
     val logging = HttpLoggingInterceptor { Timber.i(it) }
             .setLevel(Level.BODY)
     return OkHttpClient.Builder()
-            .addInterceptor(logging)
             .addInterceptor(AuthInterceptor())
+            .addInterceptor(logging)
             .addInterceptor(ResponseInterceptor())
             .build()
 }

@@ -18,14 +18,18 @@ internal class ResponseInterceptor : Interceptor {
 
         if (response.isSuccessful) return response
         val path = request.url().encodedPath()
-        val error = gson.fromJson(response.body().toString(), SdkError::class.java)
-        throw when (code) {
-            500 -> ServerException("Server Exception", code, path, error)
-            404 -> NotFoundException("Not Found Exception", code, path, error)
-            403 -> ForbiddenException("Forbidden Exception", code, path, error)
-            401 -> UnauthorizedException("Unauthorized Exception", code, path, error)
-            400 -> BadRequestException("Bad Request Exception", code, path, error)
-            else -> RemoteException("Unmapped Http Exception", code, path, error)
+
+        if (code in 400..499) {
+            val error = gson.fromJson(response.body()!!.string(), SdkError::class.java)
+            throw when (code) {
+                404 -> NotFoundException("Not Found Exception", code, path, error)
+                403 -> ForbiddenException("Forbidden Exception", code, path, error)
+                401 -> UnauthorizedException("Unauthorized Exception", code, path, error)
+                400 -> BadRequestException("Bad Request Exception", code, path, error)
+                else -> RemoteException("Unmapped Http Exception", code, path, error)
+            }
+        } else {
+            throw ServerException("Server Exception", code, path)
         }
     }
 }

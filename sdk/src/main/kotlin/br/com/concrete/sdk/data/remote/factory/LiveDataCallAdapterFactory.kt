@@ -20,8 +20,7 @@ internal class LiveDataCallAdapterFactory : CallAdapter.Factory() {
     override fun get(returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit): CallAdapter<*, *>? {
         if (getRawType(returnType) != ResponseLiveData::class.java) return null
 
-        val type = getParameterUpperBound(0, returnType as ParameterizedType) as? ParameterizedType
-                ?: throw IllegalArgumentException("Resource must be Parameterized")
+        val type = getParameterUpperBound(0, returnType as ParameterizedType)
         return LiveDataCallAdapter<Any>(type)
     }
 }
@@ -39,13 +38,18 @@ internal class LiveDataCallAdapter<RESULT>(private val responseType: Type) : Cal
                 RequestMaker(this::setValue).execute(call)
             }
         }
+
+        override fun invalidate() {
+            super.invalidate()
+            started.set(false)
+        }
     }
 }
 
 private class RequestMaker<RESULT>(val onRequestFinish: (DataResult<RESULT>) -> Unit) : AsyncTask<Call<RESULT>, Unit, DataResult<RESULT>>() {
 
     override fun doInBackground(vararg calls: Call<RESULT>): DataResult<RESULT> = try {
-        val response = calls[0].execute()
+        val response = if (calls[0].isExecuted) calls[0].clone().execute() else calls[0].execute()
         val data = response.body()
 
         data.toDataResponse(SUCCESS)

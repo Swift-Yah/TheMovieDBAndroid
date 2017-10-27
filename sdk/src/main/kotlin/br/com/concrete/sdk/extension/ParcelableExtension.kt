@@ -26,7 +26,7 @@ internal fun <T : Parcelable> Parcel.writeTypedObjectCompat(value: T?, flags: In
 
 internal fun Parcel.readBoolean() = readByte() != 0.toByte()
 
-internal fun Parcel.writeBoolean(value: Boolean) = writeByte((if (value) 1 else 0).toByte())
+internal fun Parcel.writeBoolean(value: Boolean?) = writeByte((if (value == true) 1 else 0).toByte())
 
 internal inline fun <T> Parcel.readNullable(reader: () -> T) = if (readInt() != 0) reader() else null
 

@@ -1,1 +1,4 @@
-<resources></resources>
+<resources>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+</resources>
