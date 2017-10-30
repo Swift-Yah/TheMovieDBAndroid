@@ -4,8 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
 import br.com.concrete.sdk.data.ResponseLiveData
 import br.com.concrete.sdk.data.remote.apiInstance
-import br.com.concrete.sdk.model.ImageConfig
-import br.com.concrete.sdk.model.SdkConfig
+import br.com.concrete.sdk.model.domain.ImageConfig
+import br.com.concrete.sdk.model.domain.SdkConfig
 
 object ConfigRepository {
 

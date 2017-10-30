@@ -22,6 +22,6 @@ fun <T> LiveData<T>.observeUntil(owner: LifecycleOwner, observer: ((T) -> Boolea
     })
 }
 
-fun MediatorLiveData<Throwable>.addErrorSource(source: LiveData<Throwable>) = addSource(source) {
+fun <T> MediatorLiveData<T>.addSource(source: LiveData<T>) = addSource(source) {
     value = it
 }

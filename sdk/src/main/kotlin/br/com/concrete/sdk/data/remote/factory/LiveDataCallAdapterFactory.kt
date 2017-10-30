@@ -13,7 +13,6 @@ import retrofit2.Retrofit
 import java.lang.Exception
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import java.util.concurrent.atomic.AtomicBoolean
 
 internal class LiveDataCallAdapterFactory : CallAdapter.Factory() {
 
@@ -30,18 +29,9 @@ internal class LiveDataCallAdapter<RESULT>(private val responseType: Type) : Cal
     override fun responseType() = responseType
 
     override fun adapt(call: Call<RESULT>) = object : ResponseLiveData<RESULT>() {
-        private val started = AtomicBoolean(false)
-        override fun onActive() {
-            super.onActive()
-            if (started.compareAndSet(false, true)) {
-                value = loadingResponse()
-                RequestMaker(this::setValue).execute(call)
-            }
-        }
-
-        override fun invalidate() {
-            super.invalidate()
-            started.set(false)
+        override fun compute() {
+            value = loadingResponse()
+            RequestMaker(this::setValue).execute(call)
         }
     }
 }

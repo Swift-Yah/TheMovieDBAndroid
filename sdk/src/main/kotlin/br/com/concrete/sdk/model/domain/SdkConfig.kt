@@ -1,4 +1,4 @@
-package br.com.concrete.sdk.model
+package br.com.concrete.sdk.model.domain
 
 import android.os.Parcel
 import br.com.concrete.sdk.extension.KParcelable

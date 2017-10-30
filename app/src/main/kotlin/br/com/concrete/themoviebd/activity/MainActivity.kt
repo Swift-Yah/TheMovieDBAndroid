@@ -1,13 +1,13 @@
 package br.com.concrete.themoviebd.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import br.com.concrete.themoviebd.R
+import br.com.concrete.themoviebd.activity.base.BaseActivity
 import br.com.concrete.themoviebd.delegate.viewModelProvider
 import br.com.concrete.themoviebd.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val viewModel by viewModelProvider(MainViewModel::class)
 

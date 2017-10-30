@@ -5,9 +5,9 @@ import br.com.concrete.sdk.data.ResponseLiveData
 import br.com.concrete.sdk.data.remote.factory.LiveDataCallAdapterFactory
 import br.com.concrete.sdk.data.remote.interceptor.AuthInterceptor
 import br.com.concrete.sdk.data.remote.interceptor.ResponseInterceptor
-import br.com.concrete.sdk.model.Movie
+import br.com.concrete.sdk.model.domain.Movie
 import br.com.concrete.sdk.model.Page
-import br.com.concrete.sdk.model.SdkConfig
+import br.com.concrete.sdk.model.domain.SdkConfig
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
