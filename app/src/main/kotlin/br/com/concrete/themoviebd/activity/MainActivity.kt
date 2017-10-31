@@ -1,6 +1,9 @@
 package br.com.concrete.themoviebd.activity
 
 import android.os.Bundle
+import android.view.View
+import br.com.concrete.sdk.data.ResponseLiveData
+import br.com.concrete.sdk.extension.observe
 import br.com.concrete.themoviebd.R
 import br.com.concrete.themoviebd.activity.base.BaseActivity
 import br.com.concrete.themoviebd.delegate.viewModelProvider
@@ -20,34 +23,23 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        config.setOnClickListener {
-            viewModel.configLiveData.observeSingle(this, changeContentObserver)
-            viewModel.configLiveData.invalidate()
-        }
+        addClickListener(
+                config to viewModel.configLiveData,
+                latest to viewModel.latestLiveData,
+                now_playing to viewModel.nowPlayingLiveData,
+                popular to viewModel.popularLiveData,
+                top_rated to viewModel.topRatedLiveData,
+                upcoming to viewModel.upcomingLiveData
+        )
+    }
 
-        latest.setOnClickListener {
-            viewModel.latestLiveData.observeSingle(this, changeContentObserver)
-            viewModel.latestLiveData.invalidate()
-        }
+    private fun observeData(liveData: ResponseLiveData<*>) {
+        if (liveData.hasActiveObservers()) liveData.invalidate()
+        else liveData.observe(this, changeContentObserver)
+    }
 
-        now_playing.setOnClickListener {
-            viewModel.nowPlayingLiveData.observeSingle(this, changeContentObserver)
-            viewModel.nowPlayingLiveData.invalidate()
-        }
-
-        popular.setOnClickListener {
-            viewModel.popularLiveData.observeSingle(this, changeContentObserver)
-            viewModel.popularLiveData.invalidate()
-        }
-
-        top_rated.setOnClickListener {
-            viewModel.topRatedLiveData.observeSingle(this, changeContentObserver)
-            viewModel.topRatedLiveData.invalidate()
-        }
-
-        upcoming.setOnClickListener {
-            viewModel.upcomingLiveData.observeSingle(this, changeContentObserver)
-        }
+    private fun addClickListener(vararg pair: Pair<View, ResponseLiveData<*>>) {
+        pair.forEach { it.first.setOnClickListener { _ -> observeData(it.second) } }
     }
 
 }
