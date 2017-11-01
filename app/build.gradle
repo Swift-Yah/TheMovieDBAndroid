@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 final app_name = "Another Movie Browser"
 
@@ -66,5 +65,4 @@ dependencies {
     // Android Support
     implementation "com.android.support:design:$versions.androidSupport"
     implementation "com.android.support.constraint:constraint-layout:$versions.constraintLayout"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }

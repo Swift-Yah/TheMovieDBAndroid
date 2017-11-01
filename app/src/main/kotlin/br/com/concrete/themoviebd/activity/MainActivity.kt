@@ -1,18 +1,30 @@
 package br.com.concrete.themoviebd.activity
 
 import android.os.Bundle
+import android.support.v7.widget.Toolbar
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import br.com.concrete.sdk.data.ResponseLiveData
 import br.com.concrete.sdk.extension.observe
 import br.com.concrete.themoviebd.R
 import br.com.concrete.themoviebd.activity.base.BaseActivity
+import br.com.concrete.themoviebd.delegate.viewProvider
 import br.com.concrete.themoviebd.delegate.viewModelProvider
 import br.com.concrete.themoviebd.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
     private val viewModel by viewModelProvider(MainViewModel::class)
+
+    private val result: TextView by viewProvider(R.id.result)
+    private val toolbar: Toolbar by viewProvider(R.id.toolbar)
+    private val config: Button by viewProvider(R.id.config)
+    private val latest: Button  by viewProvider(R.id.latest)
+    private val nowPlaying: Button by viewProvider(R.id.now_playing)
+    private val popular: Button by viewProvider(R.id.popular)
+    private val topRated: Button by viewProvider(R.id.top_rated)
+    private val upcoming: Button by viewProvider(R.id.upcoming)
 
     private val changeContentObserver: (Any) -> Unit = {
         result.text = it.toString()
@@ -26,9 +38,9 @@ class MainActivity : BaseActivity() {
         addClickListener(
                 config to viewModel.configLiveData,
                 latest to viewModel.latestLiveData,
-                now_playing to viewModel.nowPlayingLiveData,
+                nowPlaying to viewModel.nowPlayingLiveData,
                 popular to viewModel.popularLiveData,
-                top_rated to viewModel.topRatedLiveData,
+                topRated to viewModel.topRatedLiveData,
                 upcoming to viewModel.upcomingLiveData
         )
     }

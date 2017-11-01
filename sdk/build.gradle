@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
 
@@ -40,13 +41,13 @@ android {
 final versions = rootProject.ext
 
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     // Support
-    api "com.android.support:support-annotations:$versions.androidSupport"
+    implementation "com.android.support:support-annotations:$versions.androidSupport"
 
     // Gson
-    api "com.google.code.gson:gson:$versions.gson"
+    implementation "com.google.code.gson:gson:$versions.gson"
 
     // OkHttp
     implementation "com.squareup.okhttp3:okhttp:$versions.okHttp"
@@ -69,5 +70,5 @@ dependencies {
     // Android Arch
     api "android.arch.lifecycle:runtime:$versions.arch"
     api "android.arch.lifecycle:extensions:$versions.arch"
-
+    kapt "android.arch.lifecycle:compiler:$versions.arch"
 }

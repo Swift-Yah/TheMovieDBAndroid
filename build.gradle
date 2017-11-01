@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlin_version = '1.1.51'
-    ext.android_plugin_version = '3.0.0-rc2'
+    ext.android_plugin_version = '3.0.0'
 
     repositories {
         jcenter()
@@ -70,16 +70,16 @@ subprojects {
 ext {
 
     // Android
-    androidSupport = '26.1.0'
+    androidSupport = '27.0.0'
     playServices = '11.4.'
     constraintLayout = '1.0.2'
 
     // Google
-    gson = '2.8.1'
+    gson = '2.8.2'
 
     // Square
     picasso = '2.5.2'
-    okHttp = '3.8.1'
+    okHttp = '3.9.0'
     retrofit = '2.3.0'
     timber = '4.5.1'
 
