@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply from: "$rootDir/tools/tools.gradle"
 
 final app_name = "Another Movie Browser"
 
@@ -8,6 +9,7 @@ android {
     defaultConfig {
         applicationId "br.com.concrete.themoviedb"
 
+        testInstrumentationRunner "br.com.concrete.themoviebd.CustomTestRunner"
         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
 
@@ -65,4 +67,19 @@ dependencies {
     // Android Support
     implementation "com.android.support:design:$versions.androidSupport"
     implementation "com.android.support.constraint:constraint-layout:$versions.constraintLayout"
+
+    // Testing
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    androidTestImplementation "br.com.concretesolutions:kappuccino:$versions.kappuccino"
+
+    androidTestImplementation "android.arch.core:core-testing:$versions.arch"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$versions.espresso"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.espresso"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$versions.espresso"
+    androidTestImplementation "com.android.support.test:runner:$versions.runner"
+    androidTestImplementation "com.android.support.test:rules:$versions.rules"
+    androidTestImplementation "org.mockito:mockito-android:$versions.mockito"
+    androidTestImplementation "com.nhaarman:mockito-kotlin-kt1.1:$versions.mockitoKotlin"
+    androidTestImplementation "com.github.tmurakami:dexopener:$versions.dexopener"
+    androidTestCompile "net.vidageek:mirror:$versions.mirror"
 }

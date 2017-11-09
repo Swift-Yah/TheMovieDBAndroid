@@ -2,8 +2,8 @@ package br.com.concrete.sdk
 
 import br.com.concrete.sdk.data.ResponseLiveData
 import br.com.concrete.sdk.data.remote.apiInstance
-import br.com.concrete.sdk.model.domain.Movie
 import br.com.concrete.sdk.model.Page
+import br.com.concrete.sdk.model.domain.Movie
 
 object MovieRepository {
 

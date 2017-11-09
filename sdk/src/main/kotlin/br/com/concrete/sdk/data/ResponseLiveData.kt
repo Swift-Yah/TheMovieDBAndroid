@@ -54,7 +54,7 @@ abstract class ResponseLiveData<T> : LiveData<DataResult<T>>() {
 
     fun getStatus() = value?.status
 
-    internal abstract fun compute()
+    abstract fun compute()
 
     open fun invalidate() = compute()
 

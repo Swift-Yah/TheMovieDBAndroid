@@ -9,8 +9,8 @@ import br.com.concrete.sdk.data.ResponseLiveData
 import br.com.concrete.sdk.extension.observe
 import br.com.concrete.themoviebd.R
 import br.com.concrete.themoviebd.activity.base.BaseActivity
-import br.com.concrete.themoviebd.delegate.viewProvider
 import br.com.concrete.themoviebd.delegate.viewModelProvider
+import br.com.concrete.themoviebd.delegate.viewProvider
 import br.com.concrete.themoviebd.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity() {
