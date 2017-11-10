@@ -1,0 +1,9 @@
+<resources>
+
+    <attr name="horizontalContentViewStyle" />
+
+    <declare-styleable name="HorizontalSectionView">
+        <attr name="sectionTitle" format="string" />
+        <attr name="sectionTitleTextAppearance" format="reference" />
+    </declare-styleable>
+</resources>

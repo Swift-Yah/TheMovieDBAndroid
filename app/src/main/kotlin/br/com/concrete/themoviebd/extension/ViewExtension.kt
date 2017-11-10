@@ -2,10 +2,14 @@
 
 package br.com.concrete.themoviebd.extension
 
+import android.content.res.TypedArray
+import android.os.Build
+import android.support.annotation.StyleRes
 import android.support.v7.app.ActionBar
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.squareup.picasso.Picasso
 
 fun View.addStatusBarPadding() {
@@ -27,4 +31,14 @@ fun ActionBar?.enableBack() {
 
 fun ImageView.loadUrl(url: String) {
     Picasso.with(context).load(url).into(this)
+}
+
+fun TextView.setCustomTextAppearance(@StyleRes styleRes: Int) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) setTextAppearance(styleRes)
+    else setTextAppearance(context, styleRes)
+}
+
+inline fun TypedArray.obtain(func: TypedArray.() -> Unit) {
+    func()
+    recycle()
 }

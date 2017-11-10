@@ -11,6 +11,7 @@ import br.com.concrete.themoviebd.R
 import br.com.concrete.themoviebd.activity.base.BaseActivity
 import br.com.concrete.themoviebd.delegate.viewModelProvider
 import br.com.concrete.themoviebd.delegate.viewProvider
+import br.com.concrete.themoviebd.view.HorizontalSectionView
 import br.com.concrete.themoviebd.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity() {
@@ -25,6 +26,7 @@ class MainActivity : BaseActivity() {
     private val popular: Button by viewProvider(R.id.popular)
     private val topRated: Button by viewProvider(R.id.top_rated)
     private val upcoming: Button by viewProvider(R.id.upcoming)
+    private val popularSection: HorizontalSectionView by viewProvider(R.id.popular_section)
 
     private val changeContentObserver: (Any) -> Unit = {
         result.text = it.toString()
@@ -43,6 +45,9 @@ class MainActivity : BaseActivity() {
                 topRated to viewModel.topRatedLiveData,
                 upcoming to viewModel.upcomingLiveData
         )
+
+        popularSection.observe(this, viewModel.popularLiveData)
+        popularSection.setOnRetryClickListener { viewModel.popularLiveData.invalidate() }
     }
 
     private fun observeData(liveData: ResponseLiveData<*>) {

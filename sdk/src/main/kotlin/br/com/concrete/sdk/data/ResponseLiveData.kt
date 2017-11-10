@@ -9,6 +9,7 @@ import br.com.concrete.sdk.extension.observeUntil
 import br.com.concrete.sdk.model.DataResult
 import br.com.concrete.sdk.model.type.ERROR
 import br.com.concrete.sdk.model.type.LOADING
+import br.com.concrete.sdk.model.type.SUCCESS
 import java.util.concurrent.atomic.AtomicBoolean
 
 abstract class ResponseLiveData<T> : LiveData<DataResult<T>>() {
@@ -24,10 +25,11 @@ abstract class ResponseLiveData<T> : LiveData<DataResult<T>>() {
         it.status != LOADING
     }
 
-    fun observeData(owner: LifecycleOwner, success: (data: T?) -> Unit) = observe(owner) {
-        if (it.status != ERROR) success(it.data)
-        else errorLiveData.value = it.error
-
+    fun observeData(owner: LifecycleOwner, success: (data: T) -> Unit) = observe(owner) {
+        when (it.status) {
+            ERROR -> errorLiveData.value = it.error
+            SUCCESS -> success(it.data!!)
+        }
         loadingLiveData.value = it.status == LOADING
     }
 
@@ -36,9 +38,10 @@ abstract class ResponseLiveData<T> : LiveData<DataResult<T>>() {
     fun observeError(owner: LifecycleOwner, error: (error: Throwable) -> Unit) = errorLiveData.observe(owner, error)
 
     fun observeSingleData(owner: LifecycleOwner, success: (data: T?) -> Unit) = observeUntil(owner) {
-        if (it.status != ERROR) success(it.data)
-        else errorLiveData.value = it.error
-
+        when (it.status) {
+            ERROR -> errorLiveData.value = it.error
+            SUCCESS -> success(it.data!!)
+        }
         loadingLiveData.value = it.status == LOADING
 
         it.status != LOADING
