@@ -46,8 +46,7 @@ class MainActivity : BaseActivity() {
                 upcoming to viewModel.upcomingLiveData
         )
 
-        popularSection.observe(this, viewModel.popularLiveData)
-        popularSection.setOnRetryClickListener { viewModel.popularLiveData.invalidate() }
+//        popularSection.observe(this, viewModel.popularLiveData)
     }
 
     private fun observeData(liveData: ResponseLiveData<*>) {

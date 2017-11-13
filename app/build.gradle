@@ -81,5 +81,5 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-android:$versions.mockito"
     androidTestImplementation "com.nhaarman:mockito-kotlin-kt1.1:$versions.mockitoKotlin"
     androidTestImplementation "com.github.tmurakami:dexopener:$versions.dexopener"
-    androidTestCompile "net.vidageek:mirror:$versions.mirror"
+    androidTestImplementation "net.vidageek:mirror:$versions.mirror"
 }

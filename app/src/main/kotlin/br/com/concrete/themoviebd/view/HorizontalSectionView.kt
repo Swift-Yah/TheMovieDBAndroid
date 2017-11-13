@@ -64,6 +64,7 @@ class HorizontalSectionView : RelativeLayout {
             if (it.results.isEmpty()) toEmptyState()
             else toSuccessState(it)
         }
+        setOnRetryClickListener { liveData.invalidate() }
     }
 
     fun setOnRetryClickListener(onRetryClick: (View) -> Unit) {

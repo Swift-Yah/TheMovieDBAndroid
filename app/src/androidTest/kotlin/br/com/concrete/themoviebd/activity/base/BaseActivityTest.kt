@@ -1,20 +1,17 @@
 package br.com.concrete.themoviebd.activity.base
 
 import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
 import br.com.concrete.themoviebd.delegate.ViewModelProviderDelegate
 import br.com.concrete.themoviebd.viewmodel.base.BaseViewModel
 import com.nhaarman.mockito_kotlin.whenever
 import net.vidageek.mirror.dsl.Mirror
 import org.junit.Before
 import org.junit.Rule
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import kotlin.reflect.KClass
 
-@RunWith(AndroidJUnit4::class)
 open class BaseActivityTest<AC : BaseActivity>(activityClass: KClass<AC>) {
 
     @Rule
