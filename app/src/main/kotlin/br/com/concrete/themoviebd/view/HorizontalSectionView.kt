@@ -14,6 +14,8 @@ import android.widget.TextView
 import br.com.concrete.sdk.data.ResponseLiveData
 import br.com.concrete.sdk.model.Page
 import br.com.concrete.themoviebd.R
+import br.com.concrete.themoviebd.adapter.MediaItemRecyclerAdapter
+import br.com.concrete.themoviebd.adapter.holder.MediaItemViewHolder
 import br.com.concrete.themoviebd.constants.STATE_EMPTY
 import br.com.concrete.themoviebd.constants.STATE_ERROR
 import br.com.concrete.themoviebd.constants.STATE_LOADING
@@ -21,11 +23,15 @@ import br.com.concrete.themoviebd.constants.STATE_SUCCESS
 import br.com.concrete.themoviebd.delegate.viewProvider
 import br.com.concrete.themoviebd.extension.obtain
 import br.com.concrete.themoviebd.extension.setCustomTextAppearance
+import br.com.concrete.themoviebd.model.MediaItem
 import br.com.concrete.themoviebd.statemachine.ViewStateMachine
 
 class HorizontalSectionView : RelativeLayout {
 
     private val stateMachine = ViewStateMachine()
+    private val adapter = MediaItemRecyclerAdapter().apply {
+        holderCreator = ::MediaItemViewHolder
+    }
 
     private val title: TextView by viewProvider(R.id.section_title)
     private val recyclerView: RecyclerView by viewProvider(R.id.section_success)
@@ -36,6 +42,7 @@ class HorizontalSectionView : RelativeLayout {
     init {
         inflate(context, R.layout.view_horizontal_section, this)
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = adapter
         setupStateMachine()
     }
 
@@ -55,9 +62,12 @@ class HorizontalSectionView : RelativeLayout {
 
     fun toEmptyState() = stateMachine.changeState(STATE_EMPTY)
 
-    fun toSuccessState(page: Page<*>) = stateMachine.changeState(STATE_SUCCESS)
+    fun toSuccessState(page: Page<MediaItem>) {
+        stateMachine.changeState(STATE_SUCCESS)
+        adapter.setPage(page)
+    }
 
-    fun <T> observe(lifecycleOwner: LifecycleOwner, liveData: ResponseLiveData<Page<T>>) {
+    fun observe(lifecycleOwner: LifecycleOwner, liveData: ResponseLiveData<Page<MediaItem>>) {
         liveData.observeError(lifecycleOwner, this::toErrorState)
         liveData.observeLoading(lifecycleOwner) { if (it) toLoadingState() }
         liveData.observeData(lifecycleOwner) {

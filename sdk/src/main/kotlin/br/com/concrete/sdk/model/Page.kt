@@ -7,5 +7,5 @@ data class Page<out T>(
         @Expose val totalPages: Int,
         @Expose val totalResults: Int,
         @Expose val results: List<T>,
-        @Expose val dates: DateRange
+        @Expose val dates: DateRange?
 )

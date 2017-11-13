@@ -30,7 +30,7 @@ fun ActionBar?.enableBack() {
 }
 
 fun ImageView.loadUrl(url: String) {
-
+    if (url.isEmpty()) return
     Picasso.with(context).load(url).into(this)
 }
 
