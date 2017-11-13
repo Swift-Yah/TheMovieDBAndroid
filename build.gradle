@@ -80,8 +80,8 @@ subprojects {
 ext {
 
     // Android
-    androidSupport = '27.0.0'
-    playServices = '11.4.'
+    androidSupport = '27.0.1'
+    playServices = '11.6.0'
     constraintLayout = '1.0.2'
 
     // Google
@@ -94,7 +94,7 @@ ext {
     timber = '4.5.1'
 
     // Android Arch
-    arch = '1.0.0-rc1'
+    arch = '1.0.0'
 
     // Testing
     kappuccino = '1.0.6'

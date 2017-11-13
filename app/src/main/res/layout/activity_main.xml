@@ -1,87 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
+        android:background="?attr/colorPrimary" />
 
-    <br.com.concrete.themoviebd.view.HorizontalSectionView
-        android:id="@+id/popular_section"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:sectionTitle="Abacate" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/result"
-        android:layout_width="match_parent"
-        android:layout_height="387dp"
-        app:layout_constraintBottom_toTopOf="@id/popular"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/config"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Config"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/latest"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent" />
+            <br.com.concrete.themoviebd.view.HorizontalSectionView
+                android:id="@+id/now_playing_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sectionTitle="Now Playing" />
 
-    <Button
-        android:id="@+id/latest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="latest"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/now_playing"
-        app:layout_constraintStart_toEndOf="@id/config" />
+            <br.com.concrete.themoviebd.view.HorizontalSectionView
+                android:id="@+id/popular_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sectionTitle="Popular" />
 
-    <Button
-        android:id="@+id/now_playing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="now playing"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/latest" />
+            <br.com.concrete.themoviebd.view.HorizontalSectionView
+                android:id="@+id/top_rated_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sectionTitle="Top Rated" />
 
-    <Button
-        android:id="@+id/popular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="popular"
-        app:layout_constraintBottom_toTopOf="@id/config"
-        app:layout_constraintEnd_toStartOf="@id/top_rated"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent" />
+            <br.com.concrete.themoviebd.view.HorizontalSectionView
+                android:id="@+id/upcoming_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sectionTitle="Upcoming" />
 
-    <Button
-        android:id="@+id/top_rated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="top rated"
-        app:layout_constraintBottom_toTopOf="@id/config"
-        app:layout_constraintEnd_toStartOf="@id/upcoming"
-        app:layout_constraintStart_toEndOf="@id/popular" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/upcoming"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="upcoming"
-        app:layout_constraintBottom_toTopOf="@id/config"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/top_rated" />
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

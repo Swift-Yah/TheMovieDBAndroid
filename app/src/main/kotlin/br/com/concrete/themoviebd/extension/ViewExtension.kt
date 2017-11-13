@@ -30,9 +30,11 @@ fun ActionBar?.enableBack() {
 }
 
 fun ImageView.loadUrl(url: String) {
+
     Picasso.with(context).load(url).into(this)
 }
 
+@Suppress("DEPRECATION")
 fun TextView.setCustomTextAppearance(@StyleRes styleRes: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) setTextAppearance(styleRes)
     else setTextAppearance(context, styleRes)
