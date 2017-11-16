@@ -1,8 +1,9 @@
 package br.com.concrete.themoviebd.activity.base
 
 import android.support.test.rule.ActivityTestRule
+import br.com.concrete.themoviebd.base.BaseActivity
 import br.com.concrete.themoviebd.delegate.ViewModelProviderDelegate
-import br.com.concrete.themoviebd.viewmodel.base.BaseViewModel
+import br.com.concrete.themoviebd.base.BaseViewModel
 import com.nhaarman.mockito_kotlin.whenever
 import net.vidageek.mirror.dsl.Mirror
 import org.junit.Before

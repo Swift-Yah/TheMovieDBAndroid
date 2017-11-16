@@ -2,6 +2,7 @@
 
 package br.com.concrete.themoviebd.extension
 
+import android.arch.lifecycle.LifecycleOwner
 import android.content.res.TypedArray
 import android.os.Build
 import android.support.annotation.StyleRes
@@ -10,6 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import br.com.concrete.sdk.extension.imageUrlFor
+import br.com.concrete.sdk.extension.observeSingle
+import br.com.concrete.sdk.model.type.ImageSize
+import br.com.concrete.sdk.model.type.ImageType
 import com.squareup.picasso.Picasso
 
 fun View.addStatusBarPadding() {
@@ -27,6 +32,11 @@ fun ActionBar?.enableBack() {
     if (this == null) return
     setDisplayHomeAsUpEnabled(true)
     setDisplayShowHomeEnabled(true)
+}
+
+fun ImageView.loadUrl(@ImageSize size: Long, @ImageType type: Long, path: String?) {
+    val owner = context as? LifecycleOwner ?: throw IllegalStateException("ImageView is not on Lifecycle context!")
+    imageUrlFor(size, type, path).observeSingle(owner, this::loadUrl)
 }
 
 fun ImageView.loadUrl(url: String) {

@@ -1,7 +1,7 @@
 package br.com.concrete.themoviebd.delegate
 
-import br.com.concrete.themoviebd.activity.base.BaseActivity
-import br.com.concrete.themoviebd.fragment.base.BaseFragment
+import br.com.concrete.themoviebd.base.BaseActivity
+import br.com.concrete.themoviebd.base.BaseFragment
 import kotlin.reflect.KProperty
 
 class ExtraProviderDelegate<out T>(private val extraName: String) {

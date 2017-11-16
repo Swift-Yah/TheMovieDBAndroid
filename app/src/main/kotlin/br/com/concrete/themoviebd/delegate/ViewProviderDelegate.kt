@@ -3,8 +3,8 @@ package br.com.concrete.themoviebd.delegate
 import android.support.annotation.IdRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import br.com.concrete.themoviebd.activity.base.BaseActivity
-import br.com.concrete.themoviebd.fragment.base.BaseFragment
+import br.com.concrete.themoviebd.base.BaseActivity
+import br.com.concrete.themoviebd.base.BaseFragment
 import kotlin.reflect.KProperty
 
 class ViewProviderDelegate<out T : View>(@IdRes private val idRes: Int) {

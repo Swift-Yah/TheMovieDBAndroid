@@ -1,4 +1,4 @@
-package br.com.concrete.themoviebd.fragment.base
+package br.com.concrete.themoviebd.base
 
 import android.support.v4.app.Fragment
 import br.com.concrete.themoviebd.extension.toast

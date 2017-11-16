@@ -1,9 +1,8 @@
-package br.com.concrete.themoviebd.adapter.base
+package br.com.concrete.themoviebd.base
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import br.com.concrete.themoviebd.adapter.holder.base.BaseViewHolder
 
 open class BaseRecyclerAdapter<MODEL, HOLDER : BaseViewHolder<MODEL>> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

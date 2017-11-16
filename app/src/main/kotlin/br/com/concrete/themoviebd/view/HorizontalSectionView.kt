@@ -16,10 +16,10 @@ import br.com.concrete.sdk.model.Page
 import br.com.concrete.themoviebd.R
 import br.com.concrete.themoviebd.adapter.MediaItemRecyclerAdapter
 import br.com.concrete.themoviebd.adapter.holder.MediaItemViewHolder
-import br.com.concrete.themoviebd.constants.STATE_EMPTY
-import br.com.concrete.themoviebd.constants.STATE_ERROR
-import br.com.concrete.themoviebd.constants.STATE_LOADING
-import br.com.concrete.themoviebd.constants.STATE_SUCCESS
+import br.com.concrete.themoviebd.STATE_EMPTY
+import br.com.concrete.themoviebd.STATE_ERROR
+import br.com.concrete.themoviebd.STATE_LOADING
+import br.com.concrete.themoviebd.STATE_SUCCESS
 import br.com.concrete.themoviebd.delegate.viewProvider
 import br.com.concrete.themoviebd.extension.obtain
 import br.com.concrete.themoviebd.extension.setCustomTextAppearance

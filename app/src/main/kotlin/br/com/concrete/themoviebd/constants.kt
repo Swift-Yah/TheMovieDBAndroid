@@ -1,4 +1,4 @@
-package br.com.concrete.themoviebd.constants
+package br.com.concrete.themoviebd
 
 internal const val STATE_MACHINE = "STATE_MACHINE"
 internal const val STATE_ADAPTER = "STATE_ADAPTER"

@@ -2,12 +2,10 @@
 
 package br.com.concrete.sdk.extension
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.Observer
+import android.arch.lifecycle.*
 import br.com.concrete.sdk.data.ResponseLiveData
 import br.com.concrete.sdk.model.DataResult
+import br.com.concrete.sdk.model.Page
 import br.com.concrete.sdk.model.type.ERROR
 import br.com.concrete.sdk.model.type.LOADING
 import br.com.concrete.sdk.model.type.SUCCESS
@@ -31,26 +29,30 @@ fun <T> MediatorLiveData<T>.addSource(source: LiveData<T>) = addSource(source) {
     value = it
 }
 
-fun <T, R> ResponseLiveData<T>.mapData(transformation: (T) -> R): ResponseLiveData<R> {
-    return object : ResponseLiveData<R>() {
-        override fun compute() {
-            this@mapData.observeForever(object : Observer<DataResult<T>> {
-                override fun onChanged(data: DataResult<T>?) {
-                    value = when (data?.status) {
-                        SUCCESS -> data.data?.let(transformation).toDataResponse(SUCCESS)
-                        ERROR -> data.error?.toErrorResponse()
-                        LOADING -> loadingResponse()
-                        else -> null
-                    }
-                    if (data?.status != LOADING) removeObserver(this)
-                }
+fun <T> ResponseLiveData<T>.toSimpleLiveData(): LiveData<T> {
+    val newLiveData = MutableLiveData<T>()
+    return Transformations.switchMap(this) {
+        it.data?.let { newLiveData.value = it }
+        newLiveData
+    }
+}
 
-            })
-        }
+fun <T, R> ResponseLiveData<T>.map(transformation: (T) -> R) = object : ResponseLiveData<R>() {
+    override fun compute() = Unit
+    override fun invalidate() = this@map.invalidate()
 
-        override fun invalidate() {
-            this@mapData.invalidate()
+    override fun observe(owner: LifecycleOwner, observer: Observer<DataResult<R>>) {
+        super.observe(owner, observer)
+        this@map.observe(owner) { result ->
+            value = when (result.status) {
+                SUCCESS -> result.data?.let(transformation).toDataResponse(SUCCESS)
+                ERROR -> result.error?.toErrorResponse()
+                LOADING -> loadingResponse()
+                else -> null
+            }
         }
     }
 }
 
+fun <T, R> ResponseLiveData<Page<T>>.mapPage(transformation: (T) -> R) =
+        map { page -> page.map(transformation) }

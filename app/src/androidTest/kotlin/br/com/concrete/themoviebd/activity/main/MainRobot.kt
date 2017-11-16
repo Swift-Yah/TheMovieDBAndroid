@@ -4,10 +4,10 @@ import android.support.annotation.IdRes
 import android.support.test.rule.ActivityTestRule
 import br.com.concrete.sdk.model.DataResult
 import br.com.concrete.themoviebd.R
-import br.com.concrete.themoviebd.activity.MainActivity
+import br.com.concrete.themoviebd.feature.main.MainActivity
 import br.com.concrete.themoviebd.activity.base.BaseRobot
 import br.com.concrete.themoviebd.extension.mockResponse
-import br.com.concrete.themoviebd.viewmodel.MainViewModel
+import br.com.concrete.themoviebd.feature.main.MainViewModel
 import br.com.concretesolutions.kappuccino.actions.ClickActions.click
 import br.com.concretesolutions.kappuccino.assertions.VisibilityAssertions.displayed
 

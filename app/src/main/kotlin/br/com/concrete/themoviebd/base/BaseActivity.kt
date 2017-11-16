@@ -1,4 +1,4 @@
-package br.com.concrete.themoviebd.activity.base
+package br.com.concrete.themoviebd.base
 
 import android.support.v7.app.AppCompatActivity
 import br.com.concrete.themoviebd.extension.toast

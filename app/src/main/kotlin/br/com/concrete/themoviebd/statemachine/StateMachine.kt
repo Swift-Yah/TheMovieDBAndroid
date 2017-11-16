@@ -1,7 +1,7 @@
 package br.com.concrete.themoviebd.statemachine
 
 import android.os.Bundle
-import br.com.concrete.themoviebd.constants.STATE_MACHINE_CURRENT_KEY
+import br.com.concrete.themoviebd.STATE_MACHINE_CURRENT_KEY
 
 /**
  * Simple finite state machine for view stateMap.

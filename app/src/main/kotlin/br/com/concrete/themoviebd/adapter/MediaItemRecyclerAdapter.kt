@@ -1,7 +1,7 @@
 package br.com.concrete.themoviebd.adapter
 
 import br.com.concrete.sdk.model.Page
-import br.com.concrete.themoviebd.adapter.base.BaseRecyclerAdapter
+import br.com.concrete.themoviebd.base.BaseRecyclerAdapter
 import br.com.concrete.themoviebd.adapter.holder.MediaItemViewHolder
 import br.com.concrete.themoviebd.model.MediaItem
 

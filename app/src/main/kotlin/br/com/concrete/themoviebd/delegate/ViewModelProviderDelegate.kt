@@ -3,9 +3,9 @@ package br.com.concrete.themoviebd.delegate
 import android.arch.lifecycle.ViewModelProviders
 import android.support.annotation.VisibleForTesting
 import br.com.concrete.sdk.extension.observe
-import br.com.concrete.themoviebd.activity.base.BaseActivity
-import br.com.concrete.themoviebd.fragment.base.BaseFragment
-import br.com.concrete.themoviebd.viewmodel.base.BaseViewModel
+import br.com.concrete.themoviebd.base.BaseActivity
+import br.com.concrete.themoviebd.base.BaseFragment
+import br.com.concrete.themoviebd.base.BaseViewModel
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 

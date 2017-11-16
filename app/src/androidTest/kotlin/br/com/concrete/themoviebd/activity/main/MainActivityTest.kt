@@ -1,7 +1,7 @@
 package br.com.concrete.themoviebd.activity.main
 
 import android.support.test.runner.AndroidJUnit4
-import br.com.concrete.themoviebd.activity.MainActivity
+import br.com.concrete.themoviebd.feature.main.MainActivity
 import br.com.concrete.themoviebd.activity.base.BaseActivityTest
 import org.junit.Test
 import org.junit.runner.RunWith
