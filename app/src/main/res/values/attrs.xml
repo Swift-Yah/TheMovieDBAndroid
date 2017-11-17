@@ -1,9 +1,19 @@
 <resources>
 
-    <attr name="horizontalContentViewStyle" />
-
+    <attr name="horizontalContentViewStyle" format="reference" />
     <declare-styleable name="HorizontalSectionView">
-        <attr name="sectionTitle" format="string" />
-        <attr name="sectionTitleTextAppearance" format="reference" />
+        <attr name="title" format="string" />
+        <attr name="titleTextAppearance" format="reference" />
     </declare-styleable>
+
+    <attr name="mediaItemViewStyle" format="reference" />
+    <declare-styleable name="MediaItemView">
+        <attr name="titleTextAppearance" />
+    </declare-styleable>
+
+    <attr name="seeMoreItemViewStyle" format="reference" />
+    <declare-styleable name="SeeMoreItemView">
+        <attr name="android:textAppearance" />
+    </declare-styleable>
+
 </resources>

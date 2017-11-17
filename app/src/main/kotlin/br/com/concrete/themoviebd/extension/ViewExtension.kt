@@ -35,7 +35,7 @@ fun ActionBar?.enableBack() {
 }
 
 fun ImageView.loadUrl(@ImageSize size: Long, @ImageType type: Long, path: String?) {
-    val owner = context as? LifecycleOwner ?: throw IllegalStateException("ImageView is not on Lifecycle context!")
+    val owner = context as? LifecycleOwner ?: throw IllegalStateException("ImageView is not in Lifecycle context!")
     imageUrlFor(size, type, path).observeSingle(owner, this::loadUrl)
 }
 

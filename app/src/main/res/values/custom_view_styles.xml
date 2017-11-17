@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- MediaItemViewStyle -->
+    <style name="HorizontalSectionViewStyle">
+        <item name="titleTextAppearance">@style/HorizontalSectionViewStyle.TitleAppearance</item>
+    </style>
+
+    <style name="HorizontalSectionViewStyle.TitleAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <!-- MediaItemViewStyle -->
+    <style name="MediaItemViewStyle">
+        <item name="titleTextAppearance">@style/MediaItemViewStyle.TitleAppearance</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="MediaItemViewStyle.TitleAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- SeeMoreItemViewStyle -->
+    <style name="SeeMoreItemViewStyle">
+        <item name="android:textAppearance">@style/SeeMoreItemViewStyle.TextAppearance</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:padding">24dp</item>
+    </style>
+
+    <style name="SeeMoreItemViewStyle.TextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">25sp</item>
+    </style>
+
+</resources>

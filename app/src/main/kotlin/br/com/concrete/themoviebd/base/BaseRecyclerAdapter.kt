@@ -1,21 +1,42 @@
 package br.com.concrete.themoviebd.base
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 
-open class BaseRecyclerAdapter<MODEL, HOLDER : BaseViewHolder<MODEL>> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+open class BaseRecyclerAdapter<MODEL>(private val viewCreator: ((context: Context, viewType: Int) -> ViewBinder<*>?))
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val items: MutableList<MODEL> = mutableListOf()
-    private var layoutInflater: LayoutInflater? = null
+    val items = mutableListOf<MODEL>()
+    var onItemClick: ((MODEL) -> Unit)? = null
 
-    var holderCreator: ((inflater: LayoutInflater, parent: ViewGroup) -> HOLDER)? = null
+    override fun getItemCount() = items.size
 
-    open fun setList(items: List<MODEL>) {
-        val listSize = this.items.size
-        this.items.clear()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val viewBinder = viewCreator.invoke(parent.context, viewType) ?: throw IllegalStateException("Unable create view with type: $viewType")
+        val itemView = viewBinder as? View ?: throw IllegalStateException("The ViewBinder instance also must be a View")
+        return BaseViewHolder(itemView)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder.itemView as? ViewBinder<MODEL>)?.bind(items[position])
+        bindHolder(holder.itemView as? ViewBinder<MODEL>, items[position])
+        onItemClick?.let { listener ->
+            holder.itemView.setOnClickListener { listener.invoke(items[position]) }
+        }
+    }
+
+    fun <T> bindHolder(binder: ViewBinder<T>?, model: T) {
+        binder?.bind(model)
+    }
+
+    open fun setList(newList: List<MODEL>) {
+        val listSize = items.size
+        items.clear()
         notifyItemRangeRemoved(0, listSize)
-        addAll(items)
+        addAll(newList)
     }
 
     open fun addAll(newItems: List<MODEL>) {
@@ -24,20 +45,15 @@ open class BaseRecyclerAdapter<MODEL, HOLDER : BaseViewHolder<MODEL>> : Recycler
         notifyItemRangeInserted(start, newItems.size)
     }
 
-    override fun getItemCount() = items.size
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            holderCreator?.invoke(getLayoutInflater(parent), parent) ?: throw IllegalStateException("LayoutByType must be set")
-
-    @Suppress("UNCHECKED_CAST")
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? BaseViewHolder<MODEL>)?.bind(items[position])
+    fun withListener(onItemClick: (MODEL) -> Unit): BaseRecyclerAdapter<MODEL> {
+        this.onItemClick = onItemClick
+        return this
     }
 
-    private fun getLayoutInflater(parent: ViewGroup): LayoutInflater {
-        if (layoutInflater == null)
-            layoutInflater = LayoutInflater.from(parent.context)
-        return layoutInflater!!
-    }
 }
 
+class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
+interface ViewBinder<in MODEL> {
+    fun bind(model: MODEL)
+}

@@ -13,25 +13,19 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import br.com.concrete.sdk.data.ResponseLiveData
 import br.com.concrete.sdk.model.Page
-import br.com.concrete.themoviebd.R
-import br.com.concrete.themoviebd.adapter.MediaItemRecyclerAdapter
-import br.com.concrete.themoviebd.adapter.holder.MediaItemViewHolder
-import br.com.concrete.themoviebd.STATE_EMPTY
-import br.com.concrete.themoviebd.STATE_ERROR
-import br.com.concrete.themoviebd.STATE_LOADING
-import br.com.concrete.themoviebd.STATE_SUCCESS
+import br.com.concrete.themoviebd.*
+import br.com.concrete.themoviebd.adapter.SinglePageAdapter
 import br.com.concrete.themoviebd.delegate.viewProvider
 import br.com.concrete.themoviebd.extension.obtain
 import br.com.concrete.themoviebd.extension.setCustomTextAppearance
 import br.com.concrete.themoviebd.model.MediaItem
 import br.com.concrete.themoviebd.statemachine.ViewStateMachine
+import br.com.concrete.themoviebd.view.item.MediaItemView
 
 class HorizontalSectionView : RelativeLayout {
 
     private val stateMachine = ViewStateMachine()
-    private val adapter = MediaItemRecyclerAdapter().apply {
-        holderCreator = ::MediaItemViewHolder
-    }
+    private val adapter = SinglePageAdapter(::MediaItemView)
 
     private val title: TextView by viewProvider(R.id.section_title)
     private val recyclerView: RecyclerView by viewProvider(R.id.section_success)
@@ -46,13 +40,13 @@ class HorizontalSectionView : RelativeLayout {
         setupStateMachine()
     }
 
-    constructor(context: Context) : super(context)
+    constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet) : this(context, attrs, R.attr.horizontalContentViewStyle)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, R.attr.horizontalContentViewStyle)
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
         setup(context.obtainStyledAttributes(attrs, R.styleable.HorizontalSectionView, defStyleAttr, defStyleRes))
     }
 
@@ -81,9 +75,13 @@ class HorizontalSectionView : RelativeLayout {
         errorView.setOnClickListener(onRetryClick)
     }
 
+    fun setOnItemClickListener(onItemClick: (MediaItem) -> Unit) {
+        adapter.onItemClick = onItemClick
+    }
+
     private fun setup(typedArray: TypedArray) = typedArray.obtain {
-        title.setCustomTextAppearance(getResourceId(R.styleable.HorizontalSectionView_sectionTitleTextAppearance, 0))
-        title.text = getString(R.styleable.HorizontalSectionView_sectionTitle)
+        title.setCustomTextAppearance(getResourceId(R.styleable.HorizontalSectionView_titleTextAppearance, 0))
+        title.text = getString(R.styleable.HorizontalSectionView_title)
     }
 
     private fun setupStateMachine() = stateMachine.setup(STATE_EMPTY) {

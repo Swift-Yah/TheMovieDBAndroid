@@ -27,25 +27,25 @@
                 android:id="@+id/now_playing_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:sectionTitle="Now Playing" />
+                app:title="Now Playing" />
 
             <br.com.concrete.themoviebd.view.HorizontalSectionView
                 android:id="@+id/popular_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:sectionTitle="Popular" />
+                app:title="Popular" />
 
             <br.com.concrete.themoviebd.view.HorizontalSectionView
                 android:id="@+id/top_rated_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:sectionTitle="Top Rated" />
+                app:title="Top Rated" />
 
             <br.com.concrete.themoviebd.view.HorizontalSectionView
                 android:id="@+id/upcoming_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:sectionTitle="Upcoming" />
+                app:title="Upcoming" />
 
         </LinearLayout>
 
