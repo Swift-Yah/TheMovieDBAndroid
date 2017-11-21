@@ -79,6 +79,10 @@ class HorizontalSectionView : RelativeLayout {
         adapter.onItemClick = onItemClick
     }
 
+    fun setOnSeeMoreClickListener(onSeeMoreClick: (View) -> Unit) {
+        adapter.onSeeMoreClick = onSeeMoreClick
+    }
+
     private fun setup(typedArray: TypedArray) = typedArray.obtain {
         title.setCustomTextAppearance(getResourceId(R.styleable.HorizontalSectionView_titleTextAppearance, 0))
         title.text = getString(R.styleable.HorizontalSectionView_title)

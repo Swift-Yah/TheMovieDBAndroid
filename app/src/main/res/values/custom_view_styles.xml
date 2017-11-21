@@ -1,6 +1,6 @@
 <resources>
 
-    <!-- MediaItemViewStyle -->
+    <!-- HorizontalSectionViewStyle -->
     <style name="HorizontalSectionViewStyle">
         <item name="titleTextAppearance">@style/HorizontalSectionViewStyle.TitleAppearance</item>
     </style>

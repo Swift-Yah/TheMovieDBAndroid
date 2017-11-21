@@ -6,30 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 
 open class BaseRecyclerAdapter<MODEL>(private val viewCreator: ((context: Context, viewType: Int) -> ViewBinder<*>?))
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    : RecyclerView.Adapter<BaseViewHolder>() {
 
     val items = mutableListOf<MODEL>()
     var onItemClick: ((MODEL) -> Unit)? = null
 
     override fun getItemCount() = items.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val viewBinder = viewCreator.invoke(parent.context, viewType) ?: throw IllegalStateException("Unable create view with type: $viewType")
         val itemView = viewBinder as? View ?: throw IllegalStateException("The ViewBinder instance also must be a View")
         return BaseViewHolder(itemView)
     }
 
-    @Suppress("UNCHECKED_CAST")
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder.itemView as? ViewBinder<MODEL>)?.bind(items[position])
-        bindHolder(holder.itemView as? ViewBinder<MODEL>, items[position])
-        onItemClick?.let { listener ->
-            holder.itemView.setOnClickListener { listener.invoke(items[position]) }
-        }
-    }
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) =
+            bindHolder(holder, items[position], onItemClick)
 
-    fun <T> bindHolder(binder: ViewBinder<T>?, model: T) {
-        binder?.bind(model)
+    @Suppress("UNCHECKED_CAST")
+    open fun <T> bindHolder(holder: BaseViewHolder, model: T, onItemClick: ((T) -> Unit)? = null) {
+        val binder = (holder.itemView as? ViewBinder<T>) ?:
+                throw IllegalStateException("${holder.itemView::class} cannot be cast to ViewBinder<>")
+        binder.bind(model)
+        onItemClick?.let { listener ->
+            (binder as View).setOnClickListener { listener.invoke(model) }
+        }
     }
 
     open fun setList(newList: List<MODEL>) {
