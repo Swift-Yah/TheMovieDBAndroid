@@ -28,7 +28,7 @@ abstract class ResponseLiveData<T> : LiveData<DataResult<T>>() {
     fun observeData(owner: LifecycleOwner, success: (data: T) -> Unit) = observe(owner) {
         when (it.status) {
             ERROR -> errorLiveData.value = it.error
-            SUCCESS -> success(it.data!!)
+            SUCCESS -> success(it.data ?: throw IllegalStateException("Data null! =("))
         }
         loadingLiveData.value = it.status == LOADING
     }

@@ -6,7 +6,7 @@ import br.com.concrete.themoviebd.extension.toast
 abstract class BaseActivity : AppCompatActivity() {
 
     open fun onErrorReceived(throwable: Throwable) {
-        toast(throwable.toString())
+        toast(throwable)
     }
 
 }

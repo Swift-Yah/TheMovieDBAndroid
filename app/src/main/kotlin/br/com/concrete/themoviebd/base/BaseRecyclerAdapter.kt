@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 
-open class BaseRecyclerAdapter<MODEL>(private val viewCreator: ((context: Context, viewType: Int) -> ViewBinder<*>?))
+open class BaseRecyclerAdapter<MODEL>(private val viewCreator: (context: Context, viewType: Int) -> ViewBinder<*>?)
     : RecyclerView.Adapter<BaseViewHolder>() {
 
     val items = mutableListOf<MODEL>()

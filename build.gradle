@@ -1,6 +1,6 @@
 buildscript {
-    ext.kotlin_version = '1.1.51'
-    ext.android_plugin_version = '3.0.0'
+    ext.kotlin_version = '1.2.0'
+    ext.android_plugin_version = '3.0.1'
 
     repositories {
         jcenter()
@@ -80,7 +80,7 @@ subprojects {
 ext {
 
     // Android
-    androidSupport = '27.0.1'
+    androidSupport = '27.0.2'
     playServices = '11.6.0'
     constraintLayout = '1.0.2'
 

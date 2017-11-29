@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import br.com.concrete.themoviebd.R
 import br.com.concrete.themoviebd.base.BaseActivity
+import br.com.concrete.themoviebd.delegate.nullableViewProvider
 import br.com.concrete.themoviebd.delegate.viewModelProvider
 import br.com.concrete.themoviebd.delegate.viewProvider
 import br.com.concrete.themoviebd.extension.toast

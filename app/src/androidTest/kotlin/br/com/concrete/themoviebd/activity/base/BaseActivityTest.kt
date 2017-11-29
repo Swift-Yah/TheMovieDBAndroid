@@ -33,11 +33,11 @@ open class BaseActivityTest<AC : BaseActivity>(activityClass: KClass<AC>) {
         val viewModel = Mockito.mock(viewModelClass.java)
 
         // Create "mocked" Delegate
-        val delegate = ViewModelProviderDelegate(viewModelClass)
+        val delegate = ViewModelProviderDelegate(viewModelClass, false)
         delegate.viewModel = viewModel
 
         // Add rule to return the mocked delegate when the create method is called
-        whenever(delegateCompanion.create(viewModelClass)).thenReturn(delegate)
+        whenever(delegateCompanion.create(viewModelClass, false)).thenReturn(delegate)
 
         return viewModel
     }
