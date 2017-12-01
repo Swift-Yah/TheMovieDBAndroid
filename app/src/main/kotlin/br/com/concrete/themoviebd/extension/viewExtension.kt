@@ -1,5 +1,3 @@
-@file:JvmName("ViewUtils")
-
 package br.com.concrete.themoviebd.extension
 
 import android.arch.lifecycle.LifecycleOwner

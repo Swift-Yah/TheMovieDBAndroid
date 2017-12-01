@@ -1,7 +1,7 @@
 <resources>
 
-    <attr name="horizontalContentViewStyle" format="reference" />
-    <declare-styleable name="HorizontalSectionView">
+    <attr name="mediaSectionViewStyle" format="reference" />
+    <declare-styleable name="MediaSectionView">
         <attr name="title" format="string" />
         <attr name="titleTextAppearance" format="reference" />
     </declare-styleable>

@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="mediaItemViewStyle">@style/MediaItemViewStyle</item>
-        <item name="horizontalContentViewStyle">@style/HorizontalSectionViewStyle</item>
+        <item name="mediaSectionViewStyle">@style/MediaSectionViewStyle</item>
         <item name="seeMoreItemViewStyle">@style/SeeMoreItemViewStyle</item>
     </style>
 

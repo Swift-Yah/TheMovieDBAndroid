@@ -22,7 +22,7 @@ import br.com.concrete.themoviebd.model.MediaItem
 import br.com.concrete.themoviebd.statemachine.ViewStateMachine
 import br.com.concrete.themoviebd.view.item.MediaItemView
 
-class HorizontalSectionView : RelativeLayout {
+class MediaSectionView : RelativeLayout {
 
     private val stateMachine = ViewStateMachine()
     private val adapter = SinglePageAdapter(::MediaItemView)
@@ -42,12 +42,12 @@ class HorizontalSectionView : RelativeLayout {
 
     constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, R.attr.horizontalContentViewStyle)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, R.attr.mediaSectionViewStyle)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
-        setup(context.obtainStyledAttributes(attrs, R.styleable.HorizontalSectionView, defStyleAttr, defStyleRes))
+        setup(context.obtainStyledAttributes(attrs, R.styleable.MediaSectionView, defStyleAttr, defStyleRes))
     }
 
     fun toLoadingState() = stateMachine.changeState(STATE_LOADING)
@@ -84,8 +84,8 @@ class HorizontalSectionView : RelativeLayout {
     }
 
     private fun setup(typedArray: TypedArray) = typedArray.obtain {
-        title.setCustomTextAppearance(getResourceId(R.styleable.HorizontalSectionView_titleTextAppearance, 0))
-        title.text = getString(R.styleable.HorizontalSectionView_title)
+        title.setCustomTextAppearance(getResourceId(R.styleable.MediaSectionView_titleTextAppearance, 0))
+        title.text = getString(R.styleable.MediaSectionView_title)
     }
 
     private fun setupStateMachine() = stateMachine.setup(STATE_EMPTY) {

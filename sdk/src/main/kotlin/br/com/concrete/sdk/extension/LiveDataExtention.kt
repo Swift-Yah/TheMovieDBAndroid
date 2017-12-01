@@ -29,6 +29,44 @@ fun <T> MediatorLiveData<T>.addSource(source: LiveData<T>) = addSource(source) {
     value = it
 }
 
+fun <T> MediatorLiveData<T>.addSources(vararg sources: LiveData<T>, observer: (T?) -> Unit) {
+    sources.forEach {
+        addSource(it, observer)
+    }
+}
+
+fun <T> LiveData<T>.and(another: LiveData<T>, withResult: (fromThis: T, fromAnother: T) -> T = { fromThis: T, _: T -> fromThis }): LiveData<T> {
+    val mediator = MediatorLiveData<T>()
+    var firstResult: T? = null
+
+    mediator.addSource(this) { value: T? ->
+        value?.let {
+            firstResult?.let {
+                mediator.value = withResult.invoke(value, it)
+                firstResult = null
+            }
+            if (firstResult == null) firstResult = it
+        }
+    }
+    mediator.addSource(another) { value: T? ->
+        value?.let {
+            firstResult?.let {
+                mediator.value = withResult.invoke(it, value)
+                firstResult = null
+            }
+            if (firstResult == null) firstResult = it
+        }
+    }
+    return mediator
+}
+
+infix operator fun <T> LiveData<T>.plus(liveData: LiveData<T>): LiveData<T> {
+    val mediator = MediatorLiveData<T>()
+    mediator.addSource(this)
+    mediator.addSource(liveData)
+    return mediator
+}
+
 fun <T> ResponseLiveData<T>.toSimpleLiveData(): LiveData<T> {
     val newLiveData = MutableLiveData<T>()
     return Transformations.switchMap(this) {

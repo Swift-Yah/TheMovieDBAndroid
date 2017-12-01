@@ -1,11 +1,11 @@
 <resources>
 
     <!-- HorizontalSectionViewStyle -->
-    <style name="HorizontalSectionViewStyle">
-        <item name="titleTextAppearance">@style/HorizontalSectionViewStyle.TitleAppearance</item>
+    <style name="MediaSectionViewStyle">
+        <item name="titleTextAppearance">@style/MediaSectionViewStyle.TitleAppearance</item>
     </style>
 
-    <style name="HorizontalSectionViewStyle.TitleAppearance" parent="TextAppearance.AppCompat">
+    <style name="MediaSectionViewStyle.TitleAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textSize">28sp</item>
     </style>
 

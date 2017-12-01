@@ -1,52 +1,56 @@
 package br.com.concrete.themoviebd.feature.main
 
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.v7.widget.Toolbar
-import android.view.View
+import android.view.MenuItem
 import br.com.concrete.themoviebd.R
 import br.com.concrete.themoviebd.base.BaseActivity
-import br.com.concrete.themoviebd.delegate.nullableViewProvider
+import br.com.concrete.themoviebd.base.BaseFragment
 import br.com.concrete.themoviebd.delegate.viewModelProvider
 import br.com.concrete.themoviebd.delegate.viewProvider
-import br.com.concrete.themoviebd.extension.toast
-import br.com.concrete.themoviebd.model.MediaItem
-import br.com.concrete.themoviebd.view.HorizontalSectionView
+import br.com.concrete.themoviebd.extension.changeToFragment
+import br.com.concrete.themoviebd.extension.clearFragmentStack
+import br.com.concrete.themoviebd.extension.findFragment
 
 class MainActivity : BaseActivity() {
 
     private val viewModel by viewModelProvider(MainViewModel::class)
 
     private val toolbar: Toolbar by viewProvider(R.id.toolbar)
-    private val nowPlayingSection: HorizontalSectionView by viewProvider(R.id.now_playing_section)
-    private val popularSection: HorizontalSectionView by viewProvider(R.id.popular_section)
-    private val topRatedSection: HorizontalSectionView by viewProvider(R.id.top_rated_section)
-    private val upcomingSection: HorizontalSectionView by viewProvider(R.id.upcoming_section)
-
-    private val onItemClick = { mediaItem: MediaItem -> toast(mediaItem) }
-    private val onSeeMoreClick = { view: View -> toast(view) }
+    private val navigation: BottomNavigationView by viewProvider(R.id.main_navigation)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-//        Setup Item Click Listeners
-        nowPlayingSection.setOnItemClickListener(onItemClick)
-        popularSection.setOnItemClickListener(onItemClick)
-        topRatedSection.setOnItemClickListener(onItemClick)
-        upcomingSection.setOnItemClickListener(onItemClick)
+        navigation.selectedItemId = viewModel.selectedItemId
+        navigation.setOnNavigationItemSelectedListener(this::onNavigationItemSelected)
+    }
 
-//        Setup See More Click Listeners
-        nowPlayingSection.setOnSeeMoreClickListener(onSeeMoreClick)
-        popularSection.setOnSeeMoreClickListener(onSeeMoreClick)
-        topRatedSection.setOnSeeMoreClickListener(onSeeMoreClick)
-        upcomingSection.setOnSeeMoreClickListener(onSeeMoreClick)
+    override fun onBackPressed() {
+        val fragment: BaseFragment? = findFragment(R.id.main_content)
+        if (fragment?.handleBack() == true) return
 
-//        Setup Observers
-        nowPlayingSection.observe(this, viewModel.nowPlayingLiveData)
-        popularSection.observe(this, viewModel.popularLiveData)
-        topRatedSection.observe(this, viewModel.topRatedLiveData)
-        upcomingSection.observe(this, viewModel.upcomingLiveData)
+        // Already in Home. Finish
+        if (viewModel.shouldFinish()) {
+            finish()
+            return
+        }
+
+        // Not in home. Navigate to Home after handling back in the fragment
+        if (supportFragmentManager.backStackEntryCount > 0) super.onBackPressed()
+        else navigation.selectedItemId = viewModel.selectedItemId
+    }
+
+    private fun onNavigationItemSelected(item: MenuItem): Boolean {
+        clearFragmentStack()
+        changeToFragment(
+                tag = viewModel.fragmentTagById(item.itemId),
+                parentId = R.id.main_content,
+                creator = viewModel::createFragmentByTag)
+        return true
     }
 
 }

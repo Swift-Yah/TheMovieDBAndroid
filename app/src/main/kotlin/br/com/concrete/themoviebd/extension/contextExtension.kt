@@ -1,5 +1,3 @@
-@file:JvmName("ContextUtils")
-
 package br.com.concrete.themoviebd.extension
 
 import android.content.Context
