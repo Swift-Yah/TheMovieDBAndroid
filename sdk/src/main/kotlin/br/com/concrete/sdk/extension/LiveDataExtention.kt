@@ -82,14 +82,16 @@ fun <T, R> ResponseLiveData<T>.map(transformation: (T) -> R) = object : Response
     override fun observe(owner: LifecycleOwner, observer: Observer<DataResult<R>>) {
         super.observe(owner, observer)
         this@map.observe(owner) { result ->
-            value = when (result.status) {
+            val newValue = when (result.status) {
                 SUCCESS -> result.data?.let(transformation).toDataResponse(SUCCESS)
                 ERROR -> result.error?.toErrorResponse()
                 LOADING -> loadingResponse()
                 else -> null
             }
+            if (value != newValue) value = newValue
         }
     }
+
 }
 
 fun <T, R> ResponseLiveData<Page<T>>.mapPage(transformation: (T) -> R) =

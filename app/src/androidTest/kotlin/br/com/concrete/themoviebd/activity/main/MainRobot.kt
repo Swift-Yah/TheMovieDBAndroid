@@ -1,92 +1,79 @@
 package br.com.concrete.themoviebd.activity.main
 
-import android.support.annotation.IdRes
+import android.support.test.espresso.Espresso
 import android.support.test.rule.ActivityTestRule
-import br.com.concrete.sdk.model.DataResult
 import br.com.concrete.themoviebd.R
 import br.com.concrete.themoviebd.activity.base.BaseRobot
-import br.com.concrete.themoviebd.extension.mockResponse
+import br.com.concrete.themoviebd.factory.viewmodel.mockMainViewModel
 import br.com.concrete.themoviebd.feature.main.MainActivity
 import br.com.concrete.themoviebd.feature.main.MainViewModel
 import br.com.concretesolutions.kappuccino.actions.ClickActions.click
+import br.com.concretesolutions.kappuccino.assertions.ExistanceAssertions.notExist
 import br.com.concretesolutions.kappuccino.assertions.VisibilityAssertions.displayed
 
 fun MainActivityTest.mainRobot(func: MainRobot.() -> Unit) =
-        MainRobot(rule, mockViewModelForClass(MainViewModel::class)).apply(func)
+        MainRobot(rule, mockMainViewModel()).apply {
+            launchActivity()
+            func()
+        }
 
 class MainRobot(rule: ActivityTestRule<MainActivity>, viewModel: MainViewModel) : BaseRobot<MainActivity, MainViewModel>(rule, viewModel) {
 
-    private var result: DataResult<*>? = null
-
-    fun withPopularMovies() {
-        result = viewModel.popularLiveData.mockResponse(DataResult(null, null, 50))
-        launchActivity()
+    fun movieSectionIsDisplayed() {
+        displayed { id(R.id.movie_section_parent) }
+        notExist {
+            id(R.id.tv_show_section_parent)
+            id(R.id.profile_parent)
+        }
     }
 
-    fun withTopRatedMovies() {
-        result = viewModel.topRatedLiveData.mockResponse(DataResult(null, null, 50))
-        launchActivity()
+    fun withProfileSelected() {
+        movieSectionIsDisplayed()
+        clickOnTVShowSection {
+            tvShowSectionIsDisplayed()
+        }
     }
 
-    fun withUpComingMovies() {
-        result = viewModel.upcomingLiveData.mockResponse(DataResult(null, null, 50))
-        launchActivity()
+    infix fun clickOnTVShowSection(func: MainResult.() -> Unit) {
+        click { id(R.id.main_navigation_tv_show) }
+        MainResult().apply(func)
     }
 
-    fun withConfig() {
-        result = viewModel.configLiveData.mockResponse(DataResult(null, null, 50))
-        launchActivity()
+    infix fun clickOnProfile(func: MainResult.() -> Unit) {
+        click { id(R.id.main_navigation_profile) }
+        MainResult().apply(func)
     }
 
-    fun withLatestMovie() {
-        result = viewModel.latestLiveData.mockResponse(DataResult(null, null, 50))
-        launchActivity()
-    }
-
-    fun withNowPlayingMovies() {
-        result = viewModel.nowPlayingLiveData.mockResponse(DataResult(null, null, 50))
-        launchActivity()
-    }
-
-    infix fun clickOnPopular(func: MainResult.() -> Unit) = clickOnButton(R.id.popular, func)
-
-    infix fun clickOnTopRated(func: MainResult.() -> Unit) = clickOnButton(R.id.top_rated, func)
-
-    infix fun clickOnUpComing(func: MainResult.() -> Unit) = clickOnButton(R.id.upcoming, func)
-
-    infix fun clickOnConfig(func: MainResult.() -> Unit) = clickOnButton(R.id.config, func)
-
-    infix fun clickOnLatest(func: MainResult.() -> Unit) = clickOnButton(R.id.latest, func)
-
-    infix fun clickOnNowPlaying(func: MainResult.() -> Unit) = clickOnButton(R.id.now_playing, func)
-
-    private fun clickOnButton(@IdRes id: Int, func: MainResult.() -> Unit) {
-        click { id(id) }
-        MainResult(result!!).apply(func)
+    infix fun pressBack(func: MainResult.() -> Unit) {
+        Espresso.pressBack()
+        MainResult().apply(func)
     }
 
 }
 
-class MainResult(private val result: Any) {
+class MainResult {
 
-    fun popularMoviesDisplayed() = checkResultText()
+    fun movieSectionIsDisplayed() {
+        displayed { id(R.id.movie_section_parent) }
+        notExist {
+            id(R.id.tv_show_section_parent)
+            id(R.id.profile_parent)
+        }
+    }
 
-    fun topRatedMoviesDisplayed() = checkResultText()
+    fun tvShowSectionIsDisplayed() {
+        displayed { id(R.id.tv_show_section_parent) }
+        notExist {
+            id(R.id.movie_section_parent)
+            id(R.id.profile_parent)
+        }
+    }
 
-    fun upComingMoviesDisplayed() = checkResultText()
-
-    fun configDisplayed() = checkResultText()
-
-    fun latestMovieDisplayed() = checkResultText()
-
-    fun nowPlayingMoviesDisplayed() = checkResultText()
-
-    private fun checkResultText() {
-        displayed {
-            allOf {
-                id(R.id.result)
-                text(result.toString())
-            }
+    fun profileIsDisplayed() {
+        displayed { id(R.id.profile_parent) }
+        notExist {
+            id(R.id.tv_show_section_parent)
+            id(R.id.movie_section_parent)
         }
     }
 

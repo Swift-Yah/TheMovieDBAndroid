@@ -1,6 +1,7 @@
 package br.com.concrete.themoviebd.feature.main
 
 import android.os.Bundle
+import android.support.annotation.IdRes
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
@@ -27,6 +28,9 @@ class MainActivity : BaseActivity() {
 
         navigation.selectedItemId = viewModel.selectedItemId
         navigation.setOnNavigationItemSelectedListener(this::onNavigationItemSelected)
+
+        // Set a initial content
+        selectTab(viewModel.selectedItemId)
     }
 
     override fun onBackPressed() {
@@ -41,16 +45,21 @@ class MainActivity : BaseActivity() {
 
         // Not in home. Navigate to Home after handling back in the fragment
         if (supportFragmentManager.backStackEntryCount > 0) super.onBackPressed()
-        else navigation.selectedItemId = viewModel.selectedItemId
+        else navigation.selectedItemId = viewModel.initialItemId
     }
 
     private fun onNavigationItemSelected(item: MenuItem): Boolean {
         clearFragmentStack()
+        selectTab(item.itemId)
+        return true
+    }
+
+    private fun selectTab(@IdRes itemId: Int) {
         changeToFragment(
-                tag = viewModel.fragmentTagById(item.itemId),
+                tag = viewModel.fragmentTagById(itemId),
                 parentId = R.id.main_content,
                 creator = viewModel::createFragmentByTag)
-        return true
+        viewModel.selectedItemId = itemId
     }
 
 }

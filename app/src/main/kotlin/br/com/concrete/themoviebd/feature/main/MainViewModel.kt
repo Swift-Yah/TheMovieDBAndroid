@@ -4,12 +4,15 @@ import android.support.annotation.IdRes
 import br.com.concrete.themoviebd.R
 import br.com.concrete.themoviebd.base.BaseViewModel
 import br.com.concrete.themoviebd.feature.movie.MovieSectionFragment
+import br.com.concrete.themoviebd.feature.tvshow.ProfileFragment
+import br.com.concrete.themoviebd.feature.tvshow.TVShowSectionFragment
 
 class MainViewModel : BaseViewModel() {
 
-    var selectedItemId: Int = 0
+    val initialItemId: Int = MENU_MOVIE_SECTION_ID
+    var selectedItemId: Int = initialItemId
 
-    fun shouldFinish() = selectedItemId == INITIAL_SELECTED_ID
+    fun shouldFinish() = selectedItemId == initialItemId
 
     fun fragmentTagById(@IdRes id: Int): String {
         return MENU_ID_TAG_MAP[id] ?: throw IllegalArgumentException("Id: $id does not have a respective Tag")
@@ -17,8 +20,8 @@ class MainViewModel : BaseViewModel() {
 
     fun createFragmentByTag(tag: String) = when (tag) {
         MENU_MOVIE_SECTION_TAG -> MovieSectionFragment()
-        MENU_TV_SHOW_SECTION_TAG -> MovieSectionFragment()
-        MENU_PROFILE_TAG -> MovieSectionFragment()
+        MENU_TV_SHOW_SECTION_TAG -> TVShowSectionFragment()
+        MENU_PROFILE_TAG -> ProfileFragment()
         else -> throw IllegalArgumentException("Impossible to create a Fragment with tag: $tag")
     }
 
@@ -31,8 +34,6 @@ class MainViewModel : BaseViewModel() {
         private const val MENU_MOVIE_SECTION_TAG = "MENU_MOVIE_SECTION_TAG"
         private const val MENU_TV_SHOW_SECTION_TAG = "MENU_TV_SHOW_SECTION_TAG"
         private const val MENU_PROFILE_TAG = "MENU_PROFILE_TAG"
-
-        private const val INITIAL_SELECTED_ID = MENU_MOVIE_SECTION_ID
 
         private val MENU_ID_TAG_MAP = hashMapOf(
                 MENU_MOVIE_SECTION_ID to MENU_MOVIE_SECTION_TAG,

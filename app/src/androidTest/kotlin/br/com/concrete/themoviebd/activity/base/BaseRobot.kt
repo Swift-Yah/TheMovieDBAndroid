@@ -13,7 +13,7 @@ open class BaseRobot<in T : BaseActivity, out VM : BaseViewModel>(private val ru
     fun launchActivity(intent: Intent = Intent()) {
         rule.launchActivity(intent)
         doWait(200L)
-        registerDefaultErrors(rule.activity)
+//        registerDefaultErrors(rule.activity)
     }
 
     fun launchFragment(fragment: BaseFragment) {

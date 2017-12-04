@@ -1,8 +1,8 @@
 package br.com.concrete.themoviebd.activity.main
 
 import android.support.test.runner.AndroidJUnit4
-import br.com.concrete.themoviebd.feature.main.MainActivity
 import br.com.concrete.themoviebd.activity.base.BaseActivityTest
+import br.com.concrete.themoviebd.feature.main.MainActivity
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -10,56 +10,34 @@ import org.junit.runner.RunWith
 class MainActivityTest : BaseActivityTest<MainActivity>(MainActivity::class) {
 
     @Test
-    fun click_on_popular_should_display_popular_movies() {
+    fun by_default__movie_section_is_displayed() {
+        mainRobot { movieSectionIsDisplayed() }
+    }
+
+    @Test
+    fun click_on_TVShow_section__should_display_TVShow_section() {
         mainRobot {
-            withPopularMovies()
-        } clickOnPopular {
-            popularMoviesDisplayed()
+            movieSectionIsDisplayed()
+        } clickOnTVShowSection {
+            tvShowSectionIsDisplayed()
         }
     }
 
     @Test
-    fun click_on_top_rated_should_display_top_rated_movies() {
+    fun click_on_profile__should_display_profile() {
         mainRobot {
-            withTopRatedMovies()
-        } clickOnTopRated {
-            topRatedMoviesDisplayed()
+            movieSectionIsDisplayed()
+        } clickOnProfile {
+            profileIsDisplayed()
         }
     }
 
     @Test
-    fun click_on_upComing_should_display_up_coming_movies() {
+    fun press_back__when_movie_section_is_not_displayed__should_return_to_moview_section() {
         mainRobot {
-            withUpComingMovies()
-        } clickOnUpComing {
-            upComingMoviesDisplayed()
-        }
-    }
-
-    @Test
-    fun click_on_config_should_display_config() {
-        mainRobot {
-            withConfig()
-        } clickOnConfig {
-            configDisplayed()
-        }
-    }
-
-    @Test
-    fun click_on_latest_should_display_the_latest_movie() {
-        mainRobot {
-            withLatestMovie()
-        } clickOnLatest {
-            latestMovieDisplayed()
-        }
-    }
-
-    @Test
-    fun click_on_now_playing_should_display_now_playing_movies() {
-        mainRobot {
-            withNowPlayingMovies()
-        } clickOnNowPlaying {
-            nowPlayingMoviesDisplayed()
+            withProfileSelected()
+        } pressBack {
+            movieSectionIsDisplayed()
         }
     }
 

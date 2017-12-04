@@ -37,7 +37,7 @@ abstract class ResponseLiveData<T> : LiveData<DataResult<T>>() {
 
     fun observeError(owner: LifecycleOwner, error: (error: Throwable) -> Unit) = errorLiveData.observe(owner, error)
 
-    fun observeSingleData(owner: LifecycleOwner, success: (data: T?) -> Unit) = observeUntil(owner) {
+    fun observeSingleData(owner: LifecycleOwner, success: (data: T) -> Unit) = observeUntil(owner) {
         when (it.status) {
             ERROR -> errorLiveData.value = it.error
             SUCCESS -> success(it.data!!)
