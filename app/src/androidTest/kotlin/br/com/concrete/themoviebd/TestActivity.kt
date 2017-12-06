@@ -24,7 +24,7 @@ class TestActivity : BaseActivity() {
         fragmentTransaction { add(android.R.id.list_container, fragment, "TAG") }
     }
 
-    fun setView(view: View) {
+    fun setView(view: View) = runOnUiThread {
         content.addView(view)
     }
 }

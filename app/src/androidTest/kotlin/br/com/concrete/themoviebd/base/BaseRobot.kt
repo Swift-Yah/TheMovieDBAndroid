@@ -19,6 +19,7 @@ open class BaseFragmentRobot(rule: ActivityTestRule<TestActivity>) : BaseActivit
 
     fun launchFragment(fragment: BaseFragment) {
         rule.activity?.setFragment(fragment)
+        doWait(200L)
     }
 
 }

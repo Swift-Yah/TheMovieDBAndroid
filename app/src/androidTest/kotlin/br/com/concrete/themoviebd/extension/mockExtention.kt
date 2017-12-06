@@ -5,7 +5,6 @@ import br.com.concrete.themoviebd.sdk.model.DataResult
 import br.com.concrete.themoviebd.sdk.model.type.ERROR
 import br.com.concrete.themoviebd.sdk.model.type.LOADING
 import br.com.concrete.themoviebd.sdk.model.type.SUCCESS
-import com.nhaarman.mockito_kotlin.whenever
 import net.vidageek.mirror.dsl.Mirror
 import org.mockito.Mockito
 import java.lang.reflect.*
@@ -28,14 +27,7 @@ fun <T> ResponseLiveData<T>?.mockValue(value: T) = mockResponse(DataResult(value
 fun <T> ResponseLiveData<T>?.mockLoading() = mockResponse(DataResult(null, null, LOADING))
 fun <T> ResponseLiveData<T>?.mockError(error: Throwable) = mockResponse(DataResult(null, error, ERROR)).error!!
 fun <T> ResponseLiveData<T>?.mockResponse(value: DataResult<T>): DataResult<T> {
-    whenever(this).thenReturn(object : ResponseLiveData<T>() {
-        init {
-            postValue(value)
-        }
-
-        override fun compute() {
-        }
-    })
+    Mirror().on(this).invoke().method("postValue").withArgs(value)
     return value
 }
 
