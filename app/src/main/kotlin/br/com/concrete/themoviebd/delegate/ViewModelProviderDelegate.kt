@@ -1,18 +1,16 @@
 package br.com.concrete.themoviebd.delegate
 
 import android.arch.lifecycle.ViewModelProviders
-import android.support.annotation.VisibleForTesting
-import br.com.concrete.sdk.extension.observe
 import br.com.concrete.themoviebd.base.BaseActivity
 import br.com.concrete.themoviebd.base.BaseFragment
 import br.com.concrete.themoviebd.base.BaseViewModel
+import br.com.concrete.themoviebd.sdk.extension.observe
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
-class ViewModelProviderDelegate<T : BaseViewModel>(private val clazz: KClass<T>, private val fromActivity: Boolean) {
+class ViewModelProviderDelegate<out T : BaseViewModel>(private val clazz: KClass<T>, private val fromActivity: Boolean) {
 
-    var viewModel: T? = null
-        @VisibleForTesting set
+    private var viewModel: T? = null
 
     operator fun getValue(thisRef: BaseActivity, property: KProperty<*>) = buildViewModel(activity = thisRef)
 
@@ -33,15 +31,10 @@ class ViewModelProviderDelegate<T : BaseViewModel>(private val clazz: KClass<T>,
 
         return viewModel!!
     }
-
-    companion object {
-        fun <T : BaseViewModel> create(clazz: KClass<T>, fromActivity: Boolean) =
-                ViewModelProviderDelegate(clazz, fromActivity)
-    }
 }
 
 fun <T : BaseViewModel> BaseActivity.viewModelProvider(clazz: KClass<T>) =
-        ViewModelProviderDelegate.create(clazz, false)
+        ViewModelProviderDelegate(clazz, false)
 
 fun <T : BaseViewModel> BaseFragment.viewModelProvider(clazz: KClass<T>, fromActivity: Boolean = false) =
-        ViewModelProviderDelegate.create(clazz, fromActivity)
+        ViewModelProviderDelegate(clazz, fromActivity)

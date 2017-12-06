@@ -1,25 +1,26 @@
 package br.com.concrete.themoviebd.extension
 
-import br.com.concrete.sdk.data.ResponseLiveData
-import br.com.concrete.sdk.model.DataResult
-import br.com.concrete.sdk.model.type.ERROR
-import br.com.concrete.sdk.model.type.LOADING
-import br.com.concrete.sdk.model.type.SUCCESS
-import br.com.concrete.themoviebd.base.BaseViewModel
+import br.com.concrete.themoviebd.sdk.data.ResponseLiveData
+import br.com.concrete.themoviebd.sdk.model.DataResult
+import br.com.concrete.themoviebd.sdk.model.type.ERROR
+import br.com.concrete.themoviebd.sdk.model.type.LOADING
+import br.com.concrete.themoviebd.sdk.model.type.SUCCESS
 import com.nhaarman.mockito_kotlin.whenever
-import org.mockito.Mockito.mock
+import net.vidageek.mirror.dsl.Mirror
+import org.mockito.Mockito
 import java.lang.reflect.*
 import java.lang.reflect.Array
-import kotlin.reflect.KClass
 
-fun <T : BaseViewModel> mockViewModel(aClass: KClass<T>): T {
-    return mock(aClass.java) { invocation ->
+fun <T> mockRepository(aClass: Class<T>): T {
+    val mockedRepository = Mockito.mock(aClass) { invocation ->
         if (invocation.method.returnType != ResponseLiveData::class.java) invocation.callRealMethod()
         else {
             val parameterizedType = invocation.method.genericReturnType as ParameterizedType
             typedResponseLiveData(getRawType(parameterizedType.actualTypeArguments[0]))
         }
     }
+    Mirror().on(aClass).set().field("INSTANCE").withValue(mockedRepository)
+    return mockedRepository
 }
 
 fun <T> ResponseLiveData<T>?.mockValue(value: T) = mockResponse(DataResult(value, null, SUCCESS)).data!!

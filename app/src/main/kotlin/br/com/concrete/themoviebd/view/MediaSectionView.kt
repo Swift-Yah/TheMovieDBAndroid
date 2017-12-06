@@ -11,8 +11,8 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
-import br.com.concrete.sdk.data.ResponseLiveData
-import br.com.concrete.sdk.model.Page
+import br.com.concrete.themoviebd.sdk.data.ResponseLiveData
+import br.com.concrete.themoviebd.sdk.model.Page
 import br.com.concrete.themoviebd.*
 import br.com.concrete.themoviebd.adapter.SinglePageAdapter
 import br.com.concrete.themoviebd.delegate.viewProvider

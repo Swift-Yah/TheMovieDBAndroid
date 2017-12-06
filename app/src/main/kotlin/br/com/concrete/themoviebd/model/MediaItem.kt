@@ -1,9 +1,9 @@
 package br.com.concrete.themoviebd.model
 
 import android.os.Parcel
-import br.com.concrete.sdk.extension.KParcelable
-import br.com.concrete.sdk.extension.parcelableCreator
-import br.com.concrete.sdk.model.domain.Movie
+import br.com.concrete.themoviebd.sdk.extension.KParcelable
+import br.com.concrete.themoviebd.sdk.extension.parcelableCreator
+import br.com.concrete.themoviebd.sdk.model.domain.Movie
 
 data class MediaItem(val imagePath: String, val title: String) : KParcelable {
 

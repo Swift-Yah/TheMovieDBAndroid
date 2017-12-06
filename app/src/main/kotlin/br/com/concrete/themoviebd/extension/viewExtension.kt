@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import br.com.concrete.sdk.extension.imageUrlFor
-import br.com.concrete.sdk.extension.observeSingle
-import br.com.concrete.sdk.model.type.ImageSize
-import br.com.concrete.sdk.model.type.ImageType
+import br.com.concrete.themoviebd.sdk.extension.imageUrlFor
+import br.com.concrete.themoviebd.sdk.extension.observeSingle
+import br.com.concrete.themoviebd.sdk.model.type.ImageSize
+import br.com.concrete.themoviebd.sdk.model.type.ImageType
 import com.squareup.picasso.Picasso
 
 fun View.addStatusBarPadding() {

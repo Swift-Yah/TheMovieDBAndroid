@@ -1,5 +1,5 @@
--keep class br.com.concrete.sdk.model.** { *; }
--keep class br.com.concrete.sdk.model.*$Companion { *; }
+-keep class br.com.concrete.themoviebd.sdk.model.** { *; }
+-keep class br.com.concrete.themoviebd.sdk.model.*$Companion { *; }
 
 -dontnote android.net.http.*
 -dontnote org.apache.http.**

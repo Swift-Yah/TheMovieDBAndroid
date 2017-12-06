@@ -1,9 +1,9 @@
 package br.com.concrete.themoviebd.feature.movie
 
-import br.com.concrete.sdk.MovieRepository
-import br.com.concrete.sdk.extension.mapPage
 import br.com.concrete.themoviebd.base.BaseViewModel
 import br.com.concrete.themoviebd.model.mediaItemFrom
+import br.com.concrete.themoviebd.sdk.MovieRepository
+import br.com.concrete.themoviebd.sdk.extension.mapPage
 
 class MovieSectionViewModel : BaseViewModel() {
 

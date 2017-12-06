@@ -6,8 +6,8 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import br.com.concrete.sdk.model.type.MEDIUM
-import br.com.concrete.sdk.model.type.POSTER
+import br.com.concrete.themoviebd.sdk.model.type.MEDIUM
+import br.com.concrete.themoviebd.sdk.model.type.POSTER
 import br.com.concrete.themoviebd.R
 import br.com.concrete.themoviebd.base.ViewBinder
 import br.com.concrete.themoviebd.delegate.viewProvider

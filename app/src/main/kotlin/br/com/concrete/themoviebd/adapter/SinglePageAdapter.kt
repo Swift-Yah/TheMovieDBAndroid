@@ -2,7 +2,7 @@ package br.com.concrete.themoviebd.adapter
 
 import android.content.Context
 import android.view.View
-import br.com.concrete.sdk.model.Page
+import br.com.concrete.themoviebd.sdk.model.Page
 import br.com.concrete.themoviebd.TYPE_ITEM
 import br.com.concrete.themoviebd.TYPE_SEE_MORE
 import br.com.concrete.themoviebd.base.BaseRecyclerAdapter
