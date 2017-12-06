@@ -5,6 +5,7 @@ import br.com.concrete.themoviebd.sdk.model.DataResult
 import br.com.concrete.themoviebd.sdk.model.type.ERROR
 import br.com.concrete.themoviebd.sdk.model.type.LOADING
 import br.com.concrete.themoviebd.sdk.model.type.SUCCESS
+import com.nhaarman.mockito_kotlin.whenever
 import net.vidageek.mirror.dsl.Mirror
 import org.mockito.Mockito
 import java.lang.reflect.*
@@ -20,6 +21,19 @@ fun <T> mockRepository(aClass: Class<T>): T {
     }
     Mirror().on(aClass).set().field("INSTANCE").withValue(mockedRepository)
     return mockedRepository
+}
+
+fun <T> ResponseLiveData<T>?.mockCreation(value: T): T {
+    return mockCreation(DataResult(value, null, SUCCESS)).data!!
+}
+
+fun <T> ResponseLiveData<T>?.mockCreation(value: DataResult<T>): DataResult<T> {
+    val liveData: ResponseLiveData<T> = object : ResponseLiveData<T>() {
+        override fun compute() = Unit
+    }
+    whenever(this).thenReturn(liveData)
+    Mirror().on(liveData).invoke().method("postValue").withArgs(value)
+    return value
 }
 
 fun <T> ResponseLiveData<T>?.mockValue(value: T) = mockResponse(DataResult(value, null, SUCCESS)).data!!

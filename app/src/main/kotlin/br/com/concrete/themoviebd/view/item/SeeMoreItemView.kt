@@ -18,6 +18,7 @@ class SeeMoreItemView : LinearLayout, ViewBinder<Int> {
     init {
         inflate(context, R.layout.item_media, this)
         orientation = VERTICAL
+        id = R.id.see_more_item_parent
     }
 
     constructor(context: Context) : this(context, null)

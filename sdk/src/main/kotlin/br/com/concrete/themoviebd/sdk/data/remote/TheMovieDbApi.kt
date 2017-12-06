@@ -25,22 +25,22 @@ internal interface TheMovieDbApi {
     @GET("configuration")
     fun getConfiguration(): ResponseLiveData<SdkConfig>
 
-    @GET("movieRepository/{movie_id}")
+    @GET("movie/{movie_id}")
     fun getMovieDetail(@Path("movie_id") id: Int): ResponseLiveData<Movie>
 
-    @GET("movieRepository/latest")
+    @GET("movie/latest")
     fun getLatestMovie(): ResponseLiveData<Movie>
 
-    @GET("movieRepository/now_playing")
+    @GET("movie/now_playing")
     fun getNowPlaying(@Query("page") page: Int): ResponseLiveData<Page<Movie>>
 
-    @GET("movieRepository/popular")
+    @GET("movie/popular")
     fun getPopular(@Query("page") page: Int): ResponseLiveData<Page<Movie>>
 
-    @GET("movieRepository/top_rated")
+    @GET("movie/top_rated")
     fun getTopRated(@Query("page") page: Int): ResponseLiveData<Page<Movie>>
 
-    @GET("movieRepository/upcoming")
+    @GET("movie/upcoming")
     fun getUpcoming(@Query("page") page: Int): ResponseLiveData<Page<Movie>>
 
 }

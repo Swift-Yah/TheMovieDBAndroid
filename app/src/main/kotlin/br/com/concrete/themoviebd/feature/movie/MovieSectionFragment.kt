@@ -1,12 +1,14 @@
 package br.com.concrete.themoviebd.feature.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import br.com.concrete.themoviebd.R
 import br.com.concrete.themoviebd.base.BaseFragment
 import br.com.concrete.themoviebd.delegate.viewModelProvider
 import br.com.concrete.themoviebd.delegate.viewProvider
-import br.com.concrete.themoviebd.extension.toast
+import br.com.concrete.themoviebd.feature.media.MediaListActivity
+import br.com.concrete.themoviebd.feature.movie.detail.MovieDetailActivity
 import br.com.concrete.themoviebd.model.MediaItem
 import br.com.concrete.themoviebd.view.MediaSectionView
 
@@ -19,8 +21,16 @@ class MovieSectionFragment : BaseFragment(R.layout.fragment_movie_section) {
     private val topRatedSection: MediaSectionView by viewProvider(R.id.top_rated_section)
     private val upcomingSection: MediaSectionView by viewProvider(R.id.upcoming_section)
 
-    private val onItemClick = { mediaItem: MediaItem -> context?.toast(mediaItem) ?: Unit }
-    private val onSeeMoreClick = { view: View -> view.context.toast(view) }
+    private val onItemClick = { _: MediaItem ->
+        context?.let {
+            it.startActivity(Intent(it, MovieDetailActivity::class.java))
+        } ?: Unit
+    }
+    private val onSeeMoreClick = { view: View ->
+        view.context.let {
+            it.startActivity(Intent(it, MediaListActivity::class.java))
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

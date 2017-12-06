@@ -21,6 +21,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".feature.movie.detail.MovieDetailActivity" />
+        <activity android:name=".feature.media.MediaListActivity" />
+
+
         <activity android:name="br.com.concrete.themoviebd.TestActivity" />
 
     </application>

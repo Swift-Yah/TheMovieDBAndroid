@@ -24,6 +24,7 @@ class MediaItemView : LinearLayout, ViewBinder<MediaItem> {
     init {
         inflate(context, R.layout.item_media, this)
         orientation = VERTICAL
+        id = R.id.media_item_parent
     }
 
     constructor(context: Context) : this(context, null)

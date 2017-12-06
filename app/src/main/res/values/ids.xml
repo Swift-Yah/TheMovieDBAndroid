@@ -1,0 +1,6 @@
+<resources>
+
+    <item name="media_item_parent" type="id" />
+    <item name="see_more_item_parent" type="id" />
+
+</resources>

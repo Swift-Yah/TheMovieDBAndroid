@@ -1,11 +1,13 @@
 package br.com.concrete.themoviebd.base
 
 import android.content.Intent
+import android.support.test.espresso.intent.Intents
 import android.support.test.rule.ActivityTestRule
 import br.com.concrete.themoviebd.TestActivity
 import br.com.concrete.themoviebd.extension.mockRepository
 import br.com.concrete.themoviebd.sdk.ConfigRepository
 import br.com.concrete.themoviebd.sdk.MovieRepository
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import kotlin.reflect.KClass
@@ -20,6 +22,16 @@ open class BaseActivityTest<AC : BaseActivity>(activityClass: KClass<AC>) {
     fun setup() {
         mockRepository(MovieRepository::class.java)
         mockRepository(ConfigRepository::class.java)
+    }
+
+    @Before
+    fun initIntents() {
+        Intents.init()
+    }
+
+    @After
+    fun releaseIntents() {
+        Intents.release()
     }
 
 }
