@@ -66,7 +66,4 @@ abstract class ResponseLiveData<T> : LiveData<DataResult<T>>() {
         if (computed.compareAndSet(false, true)) compute()
     }
 
-    public override fun setValue(value: DataResult<T>?) {
-        super.setValue(value)
-    }
 }

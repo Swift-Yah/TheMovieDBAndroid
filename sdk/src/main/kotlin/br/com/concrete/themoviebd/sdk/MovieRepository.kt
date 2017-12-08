@@ -8,27 +8,27 @@ import br.com.concrete.themoviebd.sdk.model.domain.Movie
 object MovieRepository {
 
     fun getMovieDetail(id: Int): ResponseLiveData<Movie> {
-        return apiInstance.getMovieDetail(id)
+        return apiInstance.movieDetail(id)
     }
 
     fun getLatestMovie(): ResponseLiveData<Movie> {
-        return apiInstance.getLatestMovie()
+        return apiInstance.latestMovie()
     }
 
     fun getNowPlaying(): ResponseLiveData<Page<Movie>> {
-        return apiInstance.getNowPlaying(1)
+        return apiInstance.movieNowPlaying(1)
     }
 
     fun getPopular(): ResponseLiveData<Page<Movie>> {
-        return apiInstance.getPopular(1)
+        return apiInstance.moviePopular(1)
     }
 
     fun getTopRated(): ResponseLiveData<Page<Movie>> {
-        return apiInstance.getTopRated(1)
+        return apiInstance.movieTopRated(1)
     }
 
     fun getUpcoming(): ResponseLiveData<Page<Movie>> {
-        return apiInstance.getUpcoming(1)
+        return apiInstance.movieUpcoming(1)
     }
 
 }

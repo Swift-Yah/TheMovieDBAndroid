@@ -22,6 +22,7 @@
         </activity>
 
         <activity android:name=".feature.movie.detail.MovieDetailActivity" />
+        <activity android:name=".feature.tvshow.detail.TvShowDetailActivity" />
         <activity android:name=".feature.media.MediaListActivity" />
 
 

@@ -57,6 +57,7 @@ subprojects {
                 }
                 execution 'ANDROID_TEST_ORCHESTRATOR'
                 unitTests.returnDefaultValues = true
+                animationsDisabled true
             }
 
             packagingOptions {

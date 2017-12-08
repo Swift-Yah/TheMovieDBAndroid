@@ -10,7 +10,7 @@ import br.com.concrete.themoviebd.sdk.model.type.ERROR
 import br.com.concrete.themoviebd.sdk.model.type.LOADING
 import br.com.concrete.themoviebd.sdk.model.type.SUCCESS
 
-fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: ((T) -> Unit)) = observe(owner, Observer { it?.let(observer) })
+fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T) -> Unit) = observe(owner, Observer { it?.let(observer) })
 
 fun <T> LiveData<T>.observeSingle(owner: LifecycleOwner, observer: ((T) -> Unit)) = observeUntil(owner) {
     it.let(observer)

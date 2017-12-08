@@ -9,7 +9,7 @@ import br.com.concrete.themoviebd.sdk.model.domain.SdkConfig
 
 object ConfigRepository {
 
-    private val configurationLiveData = apiInstance.getConfiguration()
+    private val configurationLiveData = apiInstance.configuration()
 
     fun getConfiguration() = configurationLiveData.toSimpleLiveData()
 

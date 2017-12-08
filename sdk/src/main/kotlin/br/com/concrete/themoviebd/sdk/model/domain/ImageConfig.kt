@@ -19,7 +19,7 @@ data class ImageConfig(
         val CREATOR = parcelableCreator(::ImageConfig)
     }
 
-    constructor(parcel: Parcel) : this(
+    private constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
             parcel.createStringArrayList(),
